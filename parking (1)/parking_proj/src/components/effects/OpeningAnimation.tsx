@@ -84,7 +84,7 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
       if (elapsed < 800) {
         if (phase !== 0) {
           setPhase(0);
-          setTerminalMsg("SYSTEM: DETECTING VEHICLE APPROACH // BANER INGRESS");
+          setTerminalMsg("SYSTEM: DETECTING VEHICLE APPROACH // BKC INGRESS");
         }
       } else if (elapsed < 1600) {
         if (phase !== 1) {
@@ -654,3 +654,4 @@ export function replayParkingIntro() {
     window.dispatchEvent(new CustomEvent("replay-parking-intro"));
   }
 }
+

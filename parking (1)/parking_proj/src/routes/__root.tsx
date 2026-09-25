@@ -79,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ParkGrid One — Smart Parking in Baner" },
-      { name: "description", content: "Book secure smart parking, EV charging, and QR entry at ParkGrid One in Baner, Pune." },
+      { title: "ParkGrid One — Smart Parking in BKC, Mumbai" },
+      { name: "description", content: "Book secure smart parking, EV charging, and QR entry at ParkGrid One at BKC, Mumbai." },
       { name: "author", content: "ParkGrid One" },
-      { property: "og:title", content: "ParkGrid One — Smart Parking in Baner" },
+      { property: "og:title", content: "ParkGrid One — Smart Parking in BKC, Mumbai" },
       { property: "og:description", content: "Live availability, reserved bays, EV charging, and contactless entry at ParkGrid One." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -130,3 +130,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+

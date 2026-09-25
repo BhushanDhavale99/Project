@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight, Sparkles } from "lucide-react";
+import { Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight, Sparkles, Clock, Navigation, Mail, ExternalLink, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import parkGridLogo from "@/assets/parkgrid-logo.png";
@@ -14,7 +14,7 @@ const links = [
 ] as const;
 
 export function BrandMark({ compact = false }: { compact?: boolean }) {
-  return <span className="flex items-center gap-2.5"><span className="grid size-12 sm:size-14 shrink-0 place-items-center overflow-hidden rounded-lg border border-primary/30 bg-background shadow-[0_0_20px_var(--primary-glow)]"><img src={parkGridLogo} alt="ParkGrid One" className="size-full object-cover" /></span>{!compact && <span><strong className="block font-display text-sm leading-none">PARKGRID</strong><small className="font-mono text-[8px] uppercase tracking-[0.22em] text-muted-foreground">One · Baner</small></span>}</span>;
+  return <span className="flex items-center gap-2.5"><span className="grid size-12 sm:size-14 shrink-0 place-items-center overflow-hidden rounded-lg border border-primary/30 bg-background shadow-[0_0_20px_var(--primary-glow)]"><img src={parkGridLogo} alt="ParkGrid One" className="size-full object-cover" /></span>{!compact && <span><strong className="block font-display text-sm leading-none">PARKGRID</strong><small className="font-mono text-[8px] uppercase tracking-[0.22em] text-muted-foreground">BKC · Mumbai</small></span>}</span>;
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -57,6 +57,115 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     </header>
     <main>{children}</main>
     <Link to="/assistant" className="group fixed bottom-4 right-4 z-40 sm:bottom-5 sm:right-5" aria-label="Ask Parking AI"><span className="flex size-12 items-center justify-center rounded-full border border-primary/30 bg-primary text-primary-foreground shadow-[0_8px_32px_var(--primary-glow)] transition group-hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-ring sm:size-14"><Bot className="size-6" /></span><span className="pointer-events-none absolute right-16 top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-md bg-foreground px-3 py-2 text-xs text-background opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 sm:block">Ask Parking AI</span></Link>
-    <footer className="border-t border-border bg-surface py-12"><div className="mx-auto grid max-w-[1440px] gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10"><div><BrandMark /><p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">A smarter arrival at Baner’s premium connected parking facility.</p></div><div><h3 className="mb-3 text-sm font-semibold">Explore</h3><div className="grid gap-2 text-sm text-muted-foreground [&_a]:w-fit [&_a]:transition-colors hover:[&_a]:text-primary"><Link to="/parking">Parking</Link><Link to="/facilities">Facilities</Link><Link to="/assistant">AI Assistant</Link></div></div><div><h3 className="mb-3 text-sm font-semibold">Visit</h3><p className="flex gap-2 text-sm text-muted-foreground"><MapPin className="mt-0.5 size-4 shrink-0" />18 High Street, Baner, Pune 411045</p></div><div><h3 className="mb-3 text-sm font-semibold">Legal</h3><div className="grid gap-2 text-sm text-muted-foreground"><span>Privacy</span><span>Terms</span><span>© 2026 ParkGrid One</span></div></div></div></footer>
+    <footer className="border-t border-border bg-surface" aria-label="Site footer">
+      {/* ── Top grid ── */}
+      <div className="mx-auto grid max-w-[1440px] gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+
+        {/* ── Col 1: Brand ── */}
+        <div className="flex flex-col gap-4">
+          <Link to="/" aria-label="ParkGrid One home"><BrandMark /></Link>
+          <p className="max-w-[240px] text-sm leading-6 text-muted-foreground">
+            BKC Mumbai's premium connected parking facility — intelligent access, EV charging, and round-the-clock security.
+          </p>
+          <p className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-primary">
+            <span className="live-dot" aria-hidden="true" /> Open 24 hours, every day
+          </p>
+        </div>
+
+        {/* ── Col 2: Explore ── */}
+        <div>
+          <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">Explore</h2>
+          <nav aria-label="Footer navigation" className="grid gap-2">
+            {([
+              ["/",          "Home"],
+              ["/parking",   "Parking"],
+              ["/facilities","Facilities"],
+              ["/parking",   "EV Charging"],
+              ["/location",  "Location"],
+              ["/assistant", "AI Assistant"],
+              ["/bookings",  "My Bookings"],
+            ] as const).map(([to, label]) => (
+              <Link
+                key={label}
+                to={to}
+                className="group flex w-fit items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface rounded-sm"
+              >
+                <ChevronRight className="size-3 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0" aria-hidden="true" />
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* ── Col 3: Visit ── */}
+        <div>
+          <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">Visit</h2>
+          <ul className="grid gap-4 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2.5">
+              <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+              <span>Bandra Kurla Complex,<br />Mumbai, Maharashtra</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <Clock className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+              <span>Open 24 hours · Every day<br /><span className="text-[11px] opacity-70">Speed limit 8 km/h inside</span></span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <Navigation className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+              <span>Near G-Block, Bandra East<br /><span className="text-[11px] opacity-70">Separate entry &amp; exit lanes</span></span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <Mail className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+              <a href="mailto:help@parkgrid.one" className="transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">help@parkgrid.one</a>
+            </li>
+            <li>
+              <Link
+                to="/location"
+                className="inline-flex items-center gap-1.5 rounded-sm text-[11px] font-medium text-primary transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                Get directions <ExternalLink className="size-3" aria-hidden="true" />
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* ── Col 4: Legal & Support ── */}
+        <div>
+          <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">Legal &amp; Support</h2>
+          <ul className="grid gap-2 text-sm">
+            {([
+              ["/information", "Privacy Policy"],
+              ["/information", "Terms & Conditions"],
+              ["/information", "Cancellation & Refund"],
+              ["/information", "Parking Rules"],
+              ["/information", "FAQs & Help Center"],
+              ["/assistant",   "Contact Support"],
+            ] as const).map(([to, label]) => (
+              <li key={label}>
+                <Link
+                  to={to}
+                  className="group flex w-fit items-center gap-1 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface rounded-sm"
+                >
+                  <ChevronRight className="size-3 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0" aria-hidden="true" />
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* ── Bottom bar ── */}
+      <div className="border-t border-border/60">
+        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-4 px-6 py-5 lg:px-10">
+          <p className="text-[11px] text-muted-foreground">
+            © 2026 ParkGrid One · Bandra Kurla Complex, Mumbai
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+            PARKGRID · BKC · MUMBAI
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>;
 }
+

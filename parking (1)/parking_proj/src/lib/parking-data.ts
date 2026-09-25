@@ -55,8 +55,8 @@ export const parkingSlots: ParkingSlotData[] = Array.from({ length: 60 }, (_, in
 
 export const facility = {
   name: "ParkGrid One",
-  location: "High Street, Baner, Pune",
-  address: "18 High Street, Baner, Pune, Maharashtra 411045",
+  location: "Bandra Kurla Complex, Mumbai",
+  address: "Bandra Kurla Complex, Mumbai, Maharashtra",
   slots: 150,
   available: 73,
   occupied: 62,
@@ -73,3 +73,4 @@ export const facilities = [
   ["Smart Guidance", "Live signs guide you directly to your bay."],
   ["Emergency Assistance", "One-touch help points throughout the facility."],
 ] as const;
+
