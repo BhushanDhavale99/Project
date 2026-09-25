@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { AuthPage } from "@/components/app-pages";
+export const Route = createFileRoute("/login")({ head:()=>({meta:[{title:"Sign In — ParkGrid One"},{name:"description",content:"Sign in or create your ParkGrid One account."},{property:"og:title",content:"Sign In — ParkGrid One"},{property:"og:description",content:"Sign in or create your ParkGrid One account."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:AuthPage });

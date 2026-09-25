@@ -1,0 +1,225 @@
+/* Scoped map effects: no global keyframes or Radix animation overrides. */
+.pg3d {
+  min-width: 0;
+}
+.pg3d-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pg3d-toolbar button {
+  min-width: 44px;
+  min-height: 44px;
+}
+.pg3d-scene {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+  perspective: 1400px;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+.pg3d-scene[data-dragging="true"] {
+  cursor: grabbing;
+}
+.pg3d-world {
+  position: absolute;
+  width: 432px;
+  height: 368px;
+  left: calc(50% - 216px);
+  top: 35px;
+  transform-style: preserve-3d;
+}
+.pg3d-platform {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, var(--surface), var(--accent));
+  box-shadow:
+    0 12px 0 var(--border),
+    0 22px 35px var(--primary-glow);
+}
+.pg3d-platform::after {
+  content: "";
+  position: absolute;
+  inset: 126px 14px auto;
+  height: 112px;
+  border-block: 1px dashed var(--muted-foreground);
+  opacity: 0.25;
+}
+.pg3d-position {
+  position: absolute;
+  width: 84px;
+  height: 88px;
+  transform-style: preserve-3d;
+}
+.pg3d-slot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  padding: 8px;
+  border: 1px solid var(--slot-color);
+  border-radius: var(--radius);
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--slot-color) 12%, var(--surface));
+  box-shadow: 0 4px 0 color-mix(in oklch, var(--slot-color) 35%, var(--border));
+  transition:
+    translate 0.2s,
+    box-shadow 0.2s;
+}
+.pg3d-slot svg {
+  color: var(--slot-color);
+}
+.pg3d-slot[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+.pg3d-slot[aria-pressed="true"] {
+  border-width: 2px;
+  box-shadow:
+    0 6px 0 var(--border),
+    0 8px 18px var(--selected-glow);
+}
+.pg3d-slot:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
+.pg3d-info {
+  min-height: 48px;
+  padding: 10px 0;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.pg3d .map-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    125px circle at var(--cursor-x, -500px) var(--cursor-y, -500px),
+    color-mix(in oklch, var(--primary-glow) 25%, transparent),
+    transparent
+  );
+}
+.pg3d .parking-scanner {
+  position: absolute;
+  left: var(--cursor-x, -500px);
+  top: var(--cursor-y, -500px);
+  width: 50px;
+  height: 50px;
+  translate: -50% -50%;
+  border: 1px solid var(--primary-glow);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.pg3d .parking-route {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  translate: -50% 0;
+  width: min(90%, 350px);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.pg3d .parking-route svg {
+  flex: 1;
+  min-width: 0;
+  overflow: visible;
+}
+.pg3d .parking-gate {
+  display: inline-block;
+  position: relative;
+  width: 56px;
+  height: 34px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.pg3d .gate-post {
+  position: absolute;
+  left: 27px;
+  top: 12px;
+  height: 20px;
+  width: 5px;
+  background: var(--muted-foreground);
+  border-radius: 2px;
+}
+.pg3d .gate-arm {
+  position: absolute;
+  left: 29px;
+  top: 12px;
+  width: 26px;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--border) 0 5px,
+    var(--muted-foreground) 5px 10px
+  );
+}
+.pg3d .gate-car {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  opacity: 0.6;
+}
+.pg3d .gate-label {
+  position: absolute;
+  top: 36px;
+  left: 14px;
+  font: 8px monospace;
+  color: var(--muted-foreground);
+}
+.pg3d .holo-grid-floor {
+  translate: 0 var(--map-drift, 0px);
+}
+.pg3d .parking-vehicle {
+  translate: 0 var(--vehicle-drift, 0px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pg3d-slot[aria-disabled="false"]:hover {
+    translate: 0 -3px;
+    box-shadow:
+      0 7px 0 var(--border),
+      0 10px 18px var(--primary-glow);
+  }
+}
+@media (max-width: 480px) {
+  .pg3d-scene {
+    height: 355px;
+  }
+  .pg3d-world {
+    top: -25px;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  .pg3d .map-light {
+    display: none;
+  }
+  .pg3d-scene {
+    cursor: default;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pg3d .map-light {
+    display: none;
+  }
+  .pg3d .holo-grid-floor,
+  .pg3d .parking-vehicle,
+  .pg3d-slot {
+    translate: none !important;
+  }
+  .pg3d *,
+  .pg3d *::before,
+  .pg3d *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { KnowledgePage } from "@/components/app-pages";
+export const Route = createFileRoute("/admin/knowledge")({ head:()=>({meta:[{title:"AI Knowledge Base — ParkGrid One"},{name:"description",content:"Manage the documents used by the ParkGrid One parking assistant."},{property:"og:title",content:"AI Knowledge Base — ParkGrid One"},{property:"og:description",content:"Manage the documents used by the ParkGrid One parking assistant."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:KnowledgePage });

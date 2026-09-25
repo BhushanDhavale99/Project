@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { InformationPage } from "@/components/app-pages";
+export const Route = createFileRoute("/information")({ head:()=>({meta:[{title:"Parking Information — ParkGrid One"},{name:"description",content:"Rules, pricing, cancellations, entry guidance, safety, and FAQs."},{property:"og:title",content:"Parking Information — ParkGrid One"},{property:"og:description",content:"Rules, pricing, cancellations, entry guidance, safety, and FAQs."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:InformationPage });

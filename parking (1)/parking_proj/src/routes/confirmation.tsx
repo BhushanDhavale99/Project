@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ConfirmationPage } from "@/components/app-pages";
+export const Route = createFileRoute("/confirmation")({ head:()=>({meta:[{title:"Booking Confirmed — ParkGrid One"},{name:"description",content:"Your ParkGrid One parking booking and QR entry pass."},{property:"og:title",content:"Booking Confirmed — ParkGrid One"},{property:"og:description",content:"Your ParkGrid One parking booking and QR entry pass."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:ConfirmationPage });

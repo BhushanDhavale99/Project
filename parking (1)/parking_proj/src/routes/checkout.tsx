@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { CheckoutPage } from "@/components/app-pages";
+export const Route = createFileRoute("/checkout")({ head:()=>({meta:[{title:"Secure Checkout — ParkGrid One"},{name:"description",content:"Review your parking details and complete secure payment."},{property:"og:title",content:"Secure Checkout — ParkGrid One"},{property:"og:description",content:"Review your parking details and complete secure payment."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:CheckoutPage });

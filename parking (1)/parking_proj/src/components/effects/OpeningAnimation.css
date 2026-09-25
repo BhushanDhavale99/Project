@@ -1,0 +1,296 @@
+/* Cyber-Modern Opening Animation Styles for ParkGrid One */
+
+.opening-animation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #050811;
+  background-image: 
+    radial-gradient(circle at 50% 35%, rgba(0, 240, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 75% 25%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(5, 8, 17, 0.7), rgba(5, 8, 17, 0.98));
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--font-mono, monospace);
+  color: #e2e8f0;
+}
+
+/* Perspective Grid Tarmac */
+.cyber-grid-floor {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 85%);
+  pointer-events: none;
+  animation: grid-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes grid-pulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.02); }
+}
+
+/* Particle sparkles */
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 6px #00f0ff;
+  animation: particle-float linear infinite;
+}
+
+@keyframes particle-float {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-20vh) translateX(50px); opacity: 0; }
+}
+
+/* HUD Top Header */
+.hud-header {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+}
+
+.hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  backdrop-filter: blur(12px);
+}
+
+.hud-radar-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: radar-dot 1.2s ease-out infinite;
+}
+
+@keyframes radar-dot {
+  0% { transform: scale(0.9); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+  100% { transform: scale(0.9); opacity: 1; }
+}
+
+/* Stage Canvas container */
+.stage-container {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  aspect-ratio: 16 / 10;
+  max-height: 72vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Headlight cones */
+.headlight-cone {
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 35px rgba(0, 240, 255, 0.7));
+  mix-blend-mode: screen;
+}
+
+/* Laser scan line */
+.laser-scan {
+  animation: laser-sweep 1.2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px #00f0ff);
+}
+
+@keyframes laser-sweep {
+  0% { transform: translateY(-10px); opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0.4; }
+}
+
+/* Sonar radar waves */
+.sonar-wave {
+  transform-origin: center;
+  animation: sonar-expand 1.4s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+@keyframes sonar-expand {
+  0% { transform: scale(0.5); opacity: 0.9; stroke-width: 2px; }
+  100% { transform: scale(1.6); opacity: 0; stroke-width: 0.5px; }
+}
+
+/* Road arrows flow */
+.guide-arrow {
+  animation: guide-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes guide-glow {
+  0%, 100% { opacity: 0.25; filter: drop-shadow(0 0 2px rgba(0, 240, 255, 0.2)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.9)); }
+}
+
+/* Bottom Telemetry HUD */
+.hud-bottom {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 20;
+}
+
+.telemetry-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: rgba(10, 16, 30, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.05);
+  backdrop-filter: blur(16px);
+}
+
+.terminal-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.825rem;
+  letter-spacing: 0.06em;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 14px;
+  background-color: #00f0ff;
+  animation: blink-cursor 0.8s infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Progress bar */
+.hud-progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #10b981);
+  box-shadow: 0 0 12px #00f0ff;
+  transition: width 0.15s ease-out;
+}
+
+/* Skip Button */
+.skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.skip-btn:hover {
+  color: #ffffff;
+  border-color: rgba(0, 240, 255, 0.6);
+  background: rgba(0, 240, 255, 0.12);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Big Hero Reveal Screen on Dock */
+.dock-announcement {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(5, 8, 17, 0.85) 0%, rgba(5, 8, 17, 0.95) 70%);
+  z-index: 30;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Exit Transition */
+.opening-exit {
+  animation: opening-iris-exit 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes opening-iris-exit {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+  60% {
+    opacity: 0.9;
+    transform: scale(1.05);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+    filter: blur(16px);
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-animation-overlay {
+    display: none !important;
+  }
+}

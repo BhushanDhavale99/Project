@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { AdminPage } from "@/components/app-pages";
+export const Route = createFileRoute("/admin")({ head:()=>({meta:[{title:"Operations Dashboard — ParkGrid One"},{name:"description",content:"Live parking operations, bookings, revenue, and slot management."},{property:"og:title",content:"Operations Dashboard — ParkGrid One"},{property:"og:description",content:"Live parking operations, bookings, revenue, and slot management."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:AdminPage });
