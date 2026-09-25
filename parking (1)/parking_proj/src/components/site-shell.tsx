@@ -9,8 +9,14 @@ import { ThemeSelector } from "@/components/ThemeSelector";
 import { CustomCursor } from "@/components/effects/CustomCursor";
 
 const links = [
-  ["/", "Home"], ["/parking", "Parking"], ["/facilities", "Facilities"],
-  ["/location", "Location"], ["/assistant", "AI Assistant"], ["/bookings", "My Bookings"],
+  ["/", "Home"],
+  ["/parking", "Parking"],
+  ["/facilities", "Facilities"],
+  ["/location", "Location"],
+  ["/assistant", "AI Assistant"],
+  ["/bookings", "My Bookings"],
+  ["/faq", "FAQs & Help Center"],
+  ["/support", "Contact Support"],
 ] as const;
 
 export function BrandMark({ compact = false }: { compact?: boolean }) {
@@ -30,7 +36,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     <header className={cn("fixed inset-x-0 top-0 z-50 border-b transition-all duration-300", scrolled ? "border-border/80 bg-background/90 py-2 shadow-lg backdrop-blur-xl" : "border-transparent bg-transparent py-4")}>
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link to="/" aria-label="ParkGrid One home"><BrandMark /></Link>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">{links.map(([to,label]) => { const active=path===to || (to!=="/" && path.startsWith(`${to}/`)); return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={cn("relative rounded-md px-3 py-2 text-xs font-medium transition hover:bg-accent after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform", active && "text-primary after:scale-x-100")}>{label}</Link>; })}</nav>
+        <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Main navigation">{links.map(([to,label]) => { const active=path===to || (to!=="/" && path.startsWith(`${to}/`)); return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={cn("relative whitespace-nowrap rounded-md px-2.5 xl:px-3 py-2 text-xs font-medium transition hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:inset-x-2.5 xl:after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform", active && "text-primary after:scale-x-100")}>{label}</Link>; })}</nav>
         <div className="flex items-center gap-2">
           <ThemeSelector />
           <Button size="sm" variant="ghost" onClick={replayParkingIntro} title="Replay Opening Animation" className="hidden xl:inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-cyan-400">
