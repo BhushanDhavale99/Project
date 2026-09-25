@@ -7,6 +7,7 @@ import parkGridLogo from "@/assets/parkgrid-logo.png";
 import { OpeningAnimation, replayParkingIntro } from "@/components/effects/OpeningAnimation";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { CustomCursor } from "@/components/effects/CustomCursor";
+import { LoginPage } from "@/components/LoginPage";
 
 const links = [
   ["/", "Home"],
@@ -24,12 +25,45 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return sessionStorage.getItem("parkgrid_authenticated") === "true";
+  });
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const path = useRouterState({ select: (state) => state.location.pathname });
   useEffect(() => { const listener = () => setScrolled(window.scrollY > 24); listener(); window.addEventListener("scroll", listener, { passive: true }); return () => window.removeEventListener("scroll", listener); }, []);
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); }; window.addEventListener("keydown", close); return () => window.removeEventListener("keydown", close); }, []);
+
+  useEffect(() => {
+    const handleLogout = () => {
+      sessionStorage.removeItem("parkgrid_authenticated");
+      sessionStorage.removeItem("parkgrid_seen_intro");
+      setIsAuthenticated(false);
+    };
+    window.addEventListener("parkgrid-logout", handleLogout);
+    return () => window.removeEventListener("parkgrid-logout", handleLogout);
+  }, []);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        <CustomCursor />
+        <LoginPage
+          onLoginSuccess={() => {
+            sessionStorage.setItem("parkgrid_authenticated", "true");
+            sessionStorage.removeItem("parkgrid_seen_intro");
+            setIsAuthenticated(true);
+            setTimeout(() => {
+              replayParkingIntro();
+            }, 100);
+          }}
+        />
+      </div>
+    );
+  }
+
   return <div className="min-h-screen bg-background text-foreground">
     <CustomCursor />
     <OpeningAnimation />
