@@ -4,11 +4,11 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { QRCodeSVG } from "qrcode.react";
 import {
-  Activity, ArrowRight, BatteryCharging, Bot, CalendarDays, Camera,
-  CarFront, Check, ChevronDown, CircleGauge, Clock3, CreditCard, Download,
+  Activity, ArrowRight, BatteryCharging, Bot, BookOpen, CalendarDays, Camera,
+  CarFront, Check, ChevronDown, CircleGauge, Clock3, CreditCard, Database, Download,
   Copy, Edit3, ExternalLink, FileText, Headphones, IndianRupee, LockKeyhole,
-  MapPin, Navigation, Plus, ScanLine, ShieldCheck, Sparkles, Trash2,
-  UploadCloud, WalletCards, Zap,
+  MapPin, Navigation, Plus, ScanLine, ScrollText, ShieldCheck, SquareParking, Sparkles, Trash2,
+  UploadCloud, WalletCards, Wifi, Zap,
 } from "lucide-react";
 import heroImage from "@/assets/parking-hero.jpg";
 import { Button } from "@/components/ui/button";
@@ -104,8 +104,177 @@ export function EVPage(){const chargers=[{id:"01",power:"60 kW",status:"availabl
 export function InformationPage(){const items=["Parking rules","Pricing","Cancellation & refunds","Operating hours","Entry instructions","Exit instructions","EV charging","Safety","Frequently asked questions"];return <PageFrame eyebrow="Plan your visit" title="Parking information" copy="Clear answers for a smooth visit to ParkGrid One."><div className="max-w-4xl divide-y divide-border border-y border-border">{items.map((item,i)=><details key={item} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between font-display text-xl"><span>{item}</span><ChevronDown className="size-5 transition group-open:rotate-180"/></summary><p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">{i===0?"Drive at or below 8 km/h, follow lane arrows, and park only in your reserved bay. Keep your QR pass ready for entry and exit.":i===1?"Standard parking starts at ₹50 per hour. EV bays start at ₹70 per hour, with charging billed separately at ₹12 per kWh.":"Your booking details and facility guidance will appear here. Ask Parking AI for a quick, facility-specific answer."}</p></details>)}</div></PageFrame>}
 
 export function LocationPage(){return <PageFrame eyebrow="Find ParkGrid One" title="Bandra Kurla Complex, Mumbai" copy="Inside Bandra Kurla Complex, with separate entry and exit lanes."><div className="grid gap-6 lg:grid-cols-[1.15fr_.85fr]"><div className="location-map relative min-h-[480px] overflow-hidden border border-border bg-surface"><div className="absolute left-[18%] top-[18%] border border-primary/40 bg-background p-3 shadow-xl"><span className="font-mono text-[10px] uppercase text-primary">Entrance</span></div><div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border border-selected bg-selected/10 p-8 text-center"><CarFront className="mx-auto size-8 text-selected"/><strong className="mt-2 block font-display text-2xl">ParkGrid One</strong></div><div className="absolute bottom-[15%] right-[18%] border border-available/40 bg-background p-3 shadow-xl"><span className="font-mono text-[10px] uppercase text-available">Exit</span></div></div><div className="space-y-4"><InfoPanel icon={MapPin} title="Address" copy={facility.address}/><InfoPanel icon={Navigation} title="Nearby landmark" copy="Located inside BKC, near G-Block, Bandra East."/><InfoPanel icon={Clock3} title="Operating hours" copy="Open 24 hours, every day."/><InfoPanel icon={Headphones} title="Contact" copy="+91 20 4827 2400 · help@parkgrid.one"/><Button size="lg" className="w-full">Get directions <ExternalLink/></Button></div></div></PageFrame>}
+export function AssistantPage() {
+  const transport = useMemo(() => new DefaultChatTransport({ api: "/api/chat" }), []);
+  const { messages, sendMessage, status, stop, error } = useChat({ transport });
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => { if (status === "ready") inputRef.current?.focus(); }, [status]);
+  const ask = (text: string) => {
+    if (!text.trim()) return;
+    sendMessage({ text });
+    requestAnimationFrame(() => inputRef.current?.focus());
+  };
 
-export function AssistantPage(){const transport=useMemo(()=>new DefaultChatTransport({api:"/api/chat"}),[]);const {messages,sendMessage,status,stop,error}=useChat({transport});const inputRef=useRef<HTMLTextAreaElement>(null);useEffect(()=>{if(status==="ready") inputRef.current?.focus()},[status]);const ask=(text:string)=>{if(!text.trim())return;sendMessage({text});requestAnimationFrame(()=>inputRef.current?.focus())};const suggestions=["What are the parking rules?","How much does parking cost?","Is EV charging available?","Where is the entrance?"];return <PageFrame eyebrow="Facility intelligence" title="Ask Parking AI" copy="Instant answers grounded in ParkGrid One’s rules, pricing, access, and live parking context."><div className="grid min-h-[620px] overflow-hidden border border-border bg-surface lg:grid-cols-[300px_1fr]"><aside className="border-b border-border p-5 lg:border-b-0 lg:border-r"><span className="grid size-12 place-items-center border border-primary/30 bg-primary/10 text-primary"><Bot/></span><h2 className="mt-5 font-display text-2xl">Parking concierge</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">One private, single-session conversation. Messages disappear when you leave.</p><div className="mt-7 grid gap-2">{suggestions.map(q=><Button key={q} variant="outline" className="h-auto justify-start whitespace-normal py-3 text-left text-xs" onClick={()=>ask(q)}>{q}</Button>)}</div><div className="mt-8 border-t border-border pt-5 text-[11px] text-muted-foreground"><p className="flex gap-2"><Activity className="size-4 text-available"/> Live availability connected</p><p className="mt-3 flex gap-2"><FileText className="size-4 text-selected"/> Facility knowledge ready</p></div></aside><div className="flex min-h-[620px] flex-col"><Conversation className="flex-1"><ConversationContent className="mx-auto w-full max-w-3xl px-5 py-7">{messages.length===0?<div className="grid min-h-80 place-items-center text-center"><div><span className="mx-auto grid size-14 place-items-center rounded-full bg-primary/10 text-primary"><Bot/></span><h2 className="mt-5 font-display text-3xl">How can I help with your visit?</h2><p className="mt-2 text-sm text-muted-foreground">Ask about spaces, entry, pricing, EV charging, or your booking.</p></div></div>:messages.map(message=><Message className="message-enter" from={message.role} key={message.id}><MessageContent>{message.parts.map((part,index)=>part.type==="text"?<MessageResponse key={index}>{part.text}</MessageResponse>:null)}</MessageContent></Message>)}{status==="submitted"&&<Shimmer className="text-sm">Checking ParkGrid One...</Shimmer>}{error&&<p className="text-sm text-destructive">{error.message}</p>}</ConversationContent><ConversationScrollButton/></Conversation><div className="border-t border-border p-4"><PromptInput onSubmit={({text})=>ask(text)} className="mx-auto max-w-3xl"><PromptInputTextarea ref={inputRef} placeholder="Ask about parking, pricing, EV charging..."/><PromptInputFooter className="justify-end"><PromptInputSubmit status={status} onStop={stop} disabled={status!=="ready"&&status!=="error"}/></PromptInputFooter></PromptInput></div></div></div></PageFrame>}
+  const suggestions = [
+    "What are the parking rules?",
+    "How much does parking cost?",
+    "Is EV charging available?",
+    "Where is the entrance?",
+  ];
+
+  const quickActions: [React.ElementType, string, string, string][] = [
+    [SquareParking, "🅿",  "Find a parking slot",  "Check real-time bay availability"],
+    [IndianRupee,  "₹",   "Check parking price",  "From ₹50/hr · EV from ₹70/hr"],
+    [Zap,          "⚡",  "EV charging",          "6 fast chargers · CCS & Type 2"],
+    [ScrollText,   "📋",  "Parking rules",        "Speed limit, bay rules & more"],
+  ];
+
+  return (
+    <PageFrame eyebrow="Facility intelligence" title="Ask Parking AI" copy="Instant answers grounded in ParkGrid One's rules, pricing, access, and live parking context.">
+      <div className="grid min-h-[620px] overflow-hidden border border-border lg:grid-cols-[300px_1fr]">
+
+        {/* ── Sidebar: Premium Concierge Panel ── */}
+        <aside className="ai-sidebar border-b border-border p-5 lg:border-b-0">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="grid size-12 place-items-center border border-primary/30 bg-primary/10 text-primary">
+              <Bot />
+            </div>
+            <span className="ai-status-chip">
+              <span className="ai-status-dot" aria-hidden="true" />
+              AI ONLINE
+            </span>
+          </div>
+
+          <h2 className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Parking Concierge</h2>
+          <p className="mt-1 font-display text-xl font-semibold leading-snug">ParkGrid One</p>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">One private session. Messages disappear when you leave.</p>
+
+          {/* Quick Questions */}
+          <div className="mt-6">
+            <p className="ai-section-label">Quick Questions</p>
+            <div className="grid gap-2">
+              {suggestions.map(q => (
+                <Button
+                  key={q}
+                  variant="outline"
+                  className="h-auto justify-start whitespace-normal py-2.5 text-left text-xs transition-colors hover:border-primary/50 hover:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+                  onClick={() => ask(q)}
+                >
+                  {q}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* System Status */}
+          <div className="mt-6">
+            <p className="ai-section-label">System Status</p>
+            <div className="grid gap-1.5">
+              <div className="ai-sys-row">
+                <Activity className="ai-sys-icon size-3.5" aria-hidden="true" />
+                <span>Live parking data</span>
+                <span className="ml-auto font-mono text-[10px] text-available">LIVE</span>
+              </div>
+              <div className="ai-sys-row">
+                <Database className="ai-sys-icon size-3.5" aria-hidden="true" />
+                <span>Facility knowledge</span>
+                <span className="ml-auto font-mono text-[10px] text-available">READY</span>
+              </div>
+              <div className="ai-sys-row">
+                <BookOpen className="ai-sys-icon size-3.5" aria-hidden="true" />
+                <span>Booking context</span>
+                <span className="ml-auto font-mono text-[10px] text-available">ACTIVE</span>
+              </div>
+              <div className="ai-sys-row">
+                <Wifi className="ai-sys-icon size-3.5" aria-hidden="true" />
+                <span>BKC · Mumbai</span>
+                <span className="ml-auto font-mono text-[10px] text-muted-foreground">ONLINE</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* ── Chat area ── */}
+        <div className="flex min-h-[620px] flex-col">
+          <Conversation className="flex-1">
+            <ConversationContent className="mx-auto w-full max-w-3xl px-5 py-7">
+              {messages.length === 0 ? (
+                /* ── Empty state: premium command-center ── */
+                <>
+                  <div className="ai-chat-bg absolute inset-0 -z-10 pointer-events-none" aria-hidden="true" />
+                  <div className="flex min-h-80 flex-col items-center justify-center gap-8 text-center relative">
+                    {/* AI icon with glow + radar */}
+                    <div className="relative">
+                      <span className="ai-icon-glow" aria-hidden="true" />
+                      <div className="ai-icon-wrap" aria-hidden="true">
+                        <Bot className="size-7 text-primary" />
+                      </div>
+                    </div>
+
+                    {/* Heading */}
+                    <div>
+                      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">Parking AI</p>
+                      <h2 className="font-display text-3xl font-semibold">How can I help with your visit?</h2>
+                      <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">BKC · Mumbai</p>
+                      <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
+                        Ask about spaces, entry, pricing, EV charging, or your booking.
+                      </p>
+                    </div>
+
+                    {/* Quick-action cards */}
+                    <div className="grid w-full max-w-xl grid-cols-2 gap-3">
+                      {quickActions.map(([_Icon, emoji, label, sub]) => (
+                        <button
+                          key={label}
+                          className="ai-quick-card"
+                          onClick={() => ask(label)}
+                          type="button"
+                          aria-label={`Ask: ${label}`}
+                        >
+                          <span className="text-xl" aria-hidden="true">{emoji}</span>
+                          <strong className="block text-sm font-semibold leading-tight">{label}</strong>
+                          <span className="text-[11px] text-muted-foreground">{sub}</span>
+                          <ArrowRight className="ai-card-arrow size-3.5" aria-hidden="true" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                messages.map(message => (
+                  <Message className="message-enter" from={message.role} key={message.id}>
+                    <MessageContent>
+                      {message.parts.map((part, index) =>
+                        part.type === "text" ? (
+                          <MessageResponse key={index}>{part.text}</MessageResponse>
+                        ) : null
+                      )}
+                    </MessageContent>
+                  </Message>
+                ))
+              )}
+              {status === "submitted" && <Shimmer className="text-sm">Checking ParkGrid One...</Shimmer>}
+              {error && <p className="text-sm text-destructive">{error.message}</p>}
+            </ConversationContent>
+            <ConversationScrollButton />
+          </Conversation>
+
+          {/* ── Polished input area ── */}
+          <div className="ai-input-shell">
+            <PromptInput onSubmit={({ text }) => ask(text)} className="mx-auto max-w-3xl">
+              <PromptInputTextarea ref={inputRef} placeholder="Ask about parking, pricing, EV charging..." />
+              <PromptInputFooter className="justify-end">
+                <PromptInputSubmit status={status} onStop={stop} disabled={status !== "ready" && status !== "error"} />
+              </PromptInputFooter>
+            </PromptInput>
+          </div>
+        </div>
+      </div>
+    </PageFrame>
+  );
+}
+
 
 export function ProfilePage(){return <PageFrame eyebrow="Your account" title="Profile & settings"><div className="grid gap-6 lg:grid-cols-[280px_1fr]"><aside className="border border-border bg-surface p-3">{["Profile","Vehicles","Bookings","Payment methods","Notifications","Security","Logout"].map((x,i)=><Button key={x} variant={i===0?"secondary":"ghost"} className="w-full justify-start">{x}</Button>)}</aside><div className="border border-border bg-surface p-6"><div className="flex items-center gap-4"><span className="grid size-16 place-items-center rounded-full bg-primary/10 font-display text-xl text-primary">BD</span><div><h2 className="font-display text-2xl">Bhushan Dhavale</h2><p className="text-sm text-muted-foreground">Member since September 2026</p></div></div><div className="mt-8 grid gap-4 sm:grid-cols-2"><label className="field-label">Full name<input className="field-input" defaultValue="Bhushan Dhavale"/></label><label className="field-label">Email<input className="field-input" defaultValue="bhushan@example.com"/></label><label className="field-label">Phone<input className="field-input" defaultValue="+91 98765 43210"/></label><label className="field-label">Preferred vehicle<input className="field-input" defaultValue="MH12AB1234"/></label></div><Button className="mt-6">Save changes</Button><div className="mt-10 border-t border-border pt-8"><div className="mb-4"><h3 className="font-display text-xl font-semibold">Theme & Appearance</h3><p className="text-xs text-muted-foreground">Select your visual theme. Changes apply instantly and persist across sessions.</p></div><ThemeSelector variant="grid" /></div></div></div></PageFrame>}
 
@@ -122,3 +291,4 @@ export function NotificationsPage(){const rows=[["Booking confirmed","Your slot 
 function PageFrame({eyebrow,title,copy,children}:{eyebrow:string;title:string;copy?:string;children:React.ReactNode}){return <section className="page-reveal min-h-screen pt-28 pb-20"><div className="mx-auto max-w-[1440px] px-6 lg:px-10"><div className="mb-10"><SectionHeading eyebrow={eyebrow} title={title} {...(copy ? { copy } : {})}/></div><Reveal>{children}</Reveal></div></section>}
 function InfoRow({label,value,strong}:{label:string;value:string;strong?:boolean}){return <div className="flex items-center justify-between gap-4"><dt className="text-muted-foreground">{label}</dt><dd className={cn("text-right",strong&&"font-display text-2xl font-semibold text-foreground")}>{value}</dd></div>}
 function InfoPanel({icon:Icon,title,copy}:{icon:typeof MapPin;title:string;copy:string}){return <div className="flex gap-4 border border-border bg-surface p-5"><Icon className="size-5 shrink-0 text-primary"/><div><h2 className="font-semibold">{title}</h2><p className="mt-1 text-sm leading-6 text-muted-foreground">{copy}</p></div></div>}
+
