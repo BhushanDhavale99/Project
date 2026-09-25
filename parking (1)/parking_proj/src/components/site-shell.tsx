@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import parkGridLogo from "@/assets/parkgrid-logo.png";
 import { OpeningAnimation, replayParkingIntro } from "@/components/effects/OpeningAnimation";
 import { ThemeSelector } from "@/components/ThemeSelector";
+import { CustomCursor } from "@/components/effects/CustomCursor";
 
 const links = [
   ["/", "Home"], ["/parking", "Parking"], ["/facilities", "Facilities"],
@@ -24,6 +25,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); }; window.addEventListener("keydown", close); return () => window.removeEventListener("keydown", close); }, []);
   return <div className="min-h-screen bg-background text-foreground">
+    <CustomCursor />
     <OpeningAnimation />
     <header className={cn("fixed inset-x-0 top-0 z-50 border-b transition-all duration-300", scrolled ? "border-border/80 bg-background/90 py-2 shadow-lg backdrop-blur-xl" : "border-transparent bg-transparent py-4")}>
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
