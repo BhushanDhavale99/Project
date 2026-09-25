@@ -25,6 +25,9 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { replayParkingIntro } from "@/components/effects/OpeningAnimation";
 import { ThemeSelector } from "@/components/ThemeSelector";
+import { FAQ_CATEGORIES, FAQ_DATABASE, RAG_DOCUMENTS, type FAQCategory } from "@/lib/faq-rag-data";
+export { HelpCenterPage } from "@/components/HelpCenterPage";
+export { ContactSupportPage } from "@/components/ContactSupportPage";
 
 const iconSet = [Camera, Activity, BatteryCharging, AccessibilityIcon, CreditCard, ScanLine, CircleGauge, Headphones];
 
@@ -284,7 +287,180 @@ export function AdminPage(){const stats=[["Total slots","150",CarFront],["Availa
 
 function DataTable(){return <div className="overflow-x-auto border border-border"><table className="w-full min-w-[760px] text-left text-sm"><thead className="bg-muted font-mono text-[10px] uppercase tracking-wider text-muted-foreground"><tr>{["Slot","Floor","Zone","Type","EV","Status","Price","Actions"].map(h=><th key={h} className="p-4">{h}</th>)}</tr></thead><tbody className="divide-y divide-border">{parkingSlots.slice(0,6).map(s=><tr key={s.id} className="bg-surface hover:bg-accent/50"><td className="p-4 font-mono font-bold">{s.id}</td><td className="p-4">{s.floor}</td><td className="p-4">{s.zone}</td><td className="p-4">{s.type}</td><td className="p-4">{s.zone==="EV"?"Yes":"No"}</td><td className="p-4"><StatusBadge status={s.status}/></td><td className="p-4">₹{s.price}</td><td className="p-4"><div className="flex gap-1"><Button size="icon" variant="ghost" aria-label={`Edit ${s.id}`}><Edit3/></Button><Button size="icon" variant="ghost" aria-label={`Delete ${s.id}`}><Trash2/></Button></div></td></tr>)}</tbody></table></div>}
 
-export function KnowledgePage(){const docs=["Parking Rules.pdf","Cancellation Policy.pdf","EV Charging.pdf"];return <PageFrame eyebrow="Admin · AI" title="Knowledge base" copy="Manage the documents Parking AI uses to answer facility questions."><div className="grid gap-4 sm:grid-cols-4">{[["Documents","3"],["Chunks","184"],["Embeddings","184"],["Last updated","2 min"]].map(([l,v])=><div key={l} className="border border-border bg-surface p-5"><strong className="font-display text-3xl">{v}</strong><span className="mt-1 block text-xs text-muted-foreground">{l}</span></div>)}</div><div className="mt-8 grid gap-4 lg:grid-cols-[1fr_340px]"><div className="divide-y divide-border border border-border bg-surface">{docs.map(d=><div key={d} className="flex items-center justify-between p-5"><div className="flex items-center gap-3"><FileText className="text-primary"/><div><strong className="text-sm">{d}</strong><p className="text-xs text-muted-foreground">Indexed · Ready for search</p></div></div><StatusBadge status="available"/></div>)}</div><div className="grid min-h-60 place-items-center border border-dashed border-primary/40 bg-primary/5 p-6 text-center"><div><UploadCloud className="mx-auto size-9 text-primary"/><h2 className="mt-4 font-display text-xl">Upload document</h2><p className="mt-2 text-xs leading-5 text-muted-foreground">PDF, DOCX, or TXT · Extracting, chunking, and indexing are automatic.</p><Button className="mt-5">Choose file</Button></div></div></div></PageFrame>}
+export function KnowledgePage() {
+  const [selectedCat, setSelectedCat] = useState<FAQCategory | "All">("All");
+  const filteredChunks = selectedCat === "All" ? FAQ_DATABASE : FAQ_DATABASE.filter(f => f.category === selectedCat);
+
+  return (
+    <PageFrame
+      eyebrow="Admin · AI Knowledge Hub"
+      title="RAG Knowledge Base & Documents"
+      copy="Official facility documents and structured chunks utilized by the ParkGrid AI Concierge for retrieval-augmented generation."
+    >
+      {/* ── Key Metrics ── */}
+      <div className="grid gap-4 sm:grid-cols-4">
+        {[
+          ["Indexed Documents", String(RAG_DOCUMENTS.length), "6 official manuals"],
+          ["Knowledge Chunks", String(FAQ_DATABASE.length), "Fine-grained Q&A blocks"],
+          ["Vector Dimension", "1,536", "OpenAI embedding model"],
+          ["Index Status", "OPERATIONAL", "v2.4.1 synced"],
+        ].map(([label, value, sub]) => (
+          <div key={label} className="border border-border bg-surface p-5">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{label}</span>
+            <strong className="mt-1 block font-display text-3xl text-foreground">{value}</strong>
+            <span className="mt-1 block text-xs text-primary">{sub}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* ── RAG Taxonomy Overview (Tree) ── */}
+      <div className="mt-8 border border-border bg-surface p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-primary">RAG Hierarchy</span>
+            <h3 className="font-display text-xl font-semibold">Structured Knowledge Taxonomy</h3>
+          </div>
+          <Link to="/faq">
+            <Button size="sm" variant="outline">
+              View Public Help Center <ArrowRight className="size-3.5" />
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 font-mono text-xs">
+          <div className="border border-border/80 bg-background p-3.5">
+            <strong className="text-primary block mb-2">🅿 Parking</strong>
+            <ul className="space-y-1 text-muted-foreground text-[11px]">
+              <li>├── Rules &amp; Speed Limit</li>
+              <li>├── Floors (B1–L2)</li>
+              <li>├── Slot Types &amp; Colors</li>
+              <li>├── Heavy Vehicle Policy</li>
+              <li>└── Operating Hours (24/7)</li>
+            </ul>
+          </div>
+
+          <div className="border border-border/80 bg-background p-3.5">
+            <strong className="text-cyan-400 block mb-2">🎫 Booking</strong>
+            <ul className="space-y-1 text-muted-foreground text-[11px]">
+              <li>├── Booking Process</li>
+              <li>├── Slot Selection</li>
+              <li>├── Modification (≤ 30m)</li>
+              <li>├── Extension Flow</li>
+              <li>└── Digital QR Passes</li>
+            </ul>
+          </div>
+
+          <div className="border border-border/80 bg-background p-3.5">
+            <strong className="text-amber-400 block mb-2">💳 Payment</strong>
+            <ul className="space-y-1 text-muted-foreground text-[11px]">
+              <li>├── Pricing &amp; GST (18%)</li>
+              <li>├── UPI &amp; Cards Gateway</li>
+              <li>├── Failed Transactions</li>
+              <li>└── Refund Bank SLAs</li>
+            </ul>
+          </div>
+
+          <div className="border border-border/80 bg-background p-3.5">
+            <strong className="text-emerald-400 block mb-2">⚡ EV Charging</strong>
+            <ul className="space-y-1 text-muted-foreground text-[11px]">
+              <li>├── 60 kW CCS2 &amp; Type-2</li>
+              <li>├── Live Bay Availability</li>
+              <li>├── Tariffs (₹12/kWh)</li>
+              <li>└── Plug &amp; Session Setup</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Document Registry ── */}
+      <div className="mt-8">
+        <h3 className="mb-4 font-display text-2xl font-semibold">Source Documents Registry</h3>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {RAG_DOCUMENTS.map((doc) => (
+            <div key={doc.name} className="flex flex-col justify-between border border-border bg-surface p-5">
+              <div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="size-5 text-primary" />
+                    <strong className="text-sm font-semibold">{doc.name}</strong>
+                  </div>
+                  <StatusBadge status="available" />
+                </div>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">{doc.description}</p>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3 text-[11px] font-mono text-muted-foreground">
+                <span>Category: <strong className="text-foreground">{doc.category}</strong></span>
+                <span>Chunks: <strong className="text-primary">{doc.chunksCount}</strong></span>
+                <span>Size: {doc.fileSize}</span>
+                <span>v{doc.version}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Chunks Inspector ── */}
+      <div className="mt-10 border border-border bg-surface p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 className="font-display text-2xl font-semibold">Indexed RAG Chunks</h3>
+            <p className="text-xs text-muted-foreground">
+              Every chunk maintains strict metadata for semantic search and retrieval grounding.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            <button
+              type="button"
+              onClick={() => setSelectedCat("All")}
+              className={cn("px-2.5 py-1 text-xs border transition", selectedCat === "All" ? "bg-primary text-primary-foreground font-semibold" : "bg-background text-muted-foreground")}
+            >
+              All ({FAQ_DATABASE.length})
+            </button>
+            {FAQ_CATEGORIES.map(c => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setSelectedCat(c.id)}
+                className={cn("px-2.5 py-1 text-xs border transition", selectedCat === c.id ? "bg-primary text-primary-foreground font-semibold" : "bg-background text-muted-foreground")}
+              >
+                {c.emoji} {c.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {filteredChunks.map((chunk) => (
+            <div key={chunk.id} className="border border-border/80 bg-background p-4 text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-primary font-bold">{chunk.id}</span>
+                  <span className="font-mono uppercase text-muted-foreground">[{chunk.category} &gt; {chunk.subcategory}]</span>
+                </div>
+                <span className="font-mono text-[10px] text-muted-foreground">Source: {chunk.document}</span>
+              </div>
+
+              <h4 className="mt-2 font-display text-sm font-semibold text-foreground">
+                Q: {chunk.question}
+              </h4>
+              <p className="mt-1 text-muted-foreground leading-relaxed">
+                {chunk.answer}
+              </p>
+
+              <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-border/40 pt-2 font-mono text-[10px] text-muted-foreground">
+                <span>Version: v{chunk.version}</span>
+                <span>Updated: {chunk.lastUpdated}</span>
+                {chunk.badge && <span className="text-primary font-bold">Badge: {chunk.badge}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </PageFrame>
+  );
+}
 
 export function NotificationsPage(){const rows=[["Booking confirmed","Your slot A12 is reserved.","Just now",Check],["Parking starting soon","Your booking starts in 30 minutes.","12 min",Clock3],["Payment successful","₹118 paid for SP-20260920-10231.","14 min",WalletCards],["EV charging completed","Charger 01 reached your target.","Yesterday",BatteryCharging]] as const;return <PageFrame eyebrow="Updates" title="Notifications"><div className="max-w-4xl divide-y divide-border border border-border bg-surface">{rows.map(([title,copy,time,NoticeIcon])=><div key={title} className="flex gap-4 p-5"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary"><NoticeIcon/></span><div className="flex-1"><strong className="text-sm">{title}</strong><p className="mt-1 text-sm text-muted-foreground">{copy}</p></div><time className="text-[11px] text-muted-foreground">{time}</time></div>)}</div></PageFrame>}
 

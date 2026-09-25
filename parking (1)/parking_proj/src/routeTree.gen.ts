@@ -17,12 +17,14 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ConfirmationRouteImport } from './routes/confirmation'
 import { Route as EvChargingRouteImport } from './routes/ev-charging'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as InformationRouteImport } from './routes/information'
 import { Route as LocationRouteImport } from './routes/location'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ParkingRouteImport } from './routes/parking'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as VehiclesRouteImport } from './routes/vehicles'
 import { Route as AdminKnowledgeRouteImport } from './routes/admin.knowledge'
 import { Route as ApiChatRouteImport } from './routes/api.chat'
@@ -67,6 +69,11 @@ const FacilitiesRoute = FacilitiesRouteImport.update({
   path: '/facilities',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InformationRoute = InformationRouteImport.update({
   id: '/information',
   path: '/information',
@@ -97,6 +104,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VehiclesRoute = VehiclesRouteImport.update({
   id: '/vehicles',
   path: '/vehicles',
@@ -122,12 +134,14 @@ export interface FileRoutesByFullPath {
   '/confirmation': typeof ConfirmationRoute
   '/ev-charging': typeof EvChargingRoute
   '/facilities': typeof FacilitiesRoute
+  '/faq': typeof FaqRoute
   '/information': typeof InformationRoute
   '/location': typeof LocationRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/parking': typeof ParkingRoute
   '/profile': typeof ProfileRoute
+  '/support': typeof SupportRoute
   '/vehicles': typeof VehiclesRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/api/chat': typeof ApiChatRoute
@@ -141,12 +155,14 @@ export interface FileRoutesByTo {
   '/confirmation': typeof ConfirmationRoute
   '/ev-charging': typeof EvChargingRoute
   '/facilities': typeof FacilitiesRoute
+  '/faq': typeof FaqRoute
   '/information': typeof InformationRoute
   '/location': typeof LocationRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/parking': typeof ParkingRoute
   '/profile': typeof ProfileRoute
+  '/support': typeof SupportRoute
   '/vehicles': typeof VehiclesRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/api/chat': typeof ApiChatRoute
@@ -161,12 +177,14 @@ export interface FileRoutesById {
   '/confirmation': typeof ConfirmationRoute
   '/ev-charging': typeof EvChargingRoute
   '/facilities': typeof FacilitiesRoute
+  '/faq': typeof FaqRoute
   '/information': typeof InformationRoute
   '/location': typeof LocationRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/parking': typeof ParkingRoute
   '/profile': typeof ProfileRoute
+  '/support': typeof SupportRoute
   '/vehicles': typeof VehiclesRoute
   '/admin/knowledge': typeof AdminKnowledgeRoute
   '/api/chat': typeof ApiChatRoute
@@ -182,12 +200,14 @@ export interface FileRouteTypes {
     | '/confirmation'
     | '/ev-charging'
     | '/facilities'
+    | '/faq'
     | '/information'
     | '/location'
     | '/login'
     | '/notifications'
     | '/parking'
     | '/profile'
+    | '/support'
     | '/vehicles'
     | '/admin/knowledge'
     | '/api/chat'
@@ -201,12 +221,14 @@ export interface FileRouteTypes {
     | '/confirmation'
     | '/ev-charging'
     | '/facilities'
+    | '/faq'
     | '/information'
     | '/location'
     | '/login'
     | '/notifications'
     | '/parking'
     | '/profile'
+    | '/support'
     | '/vehicles'
     | '/admin/knowledge'
     | '/api/chat'
@@ -220,12 +242,14 @@ export interface FileRouteTypes {
     | '/confirmation'
     | '/ev-charging'
     | '/facilities'
+    | '/faq'
     | '/information'
     | '/location'
     | '/login'
     | '/notifications'
     | '/parking'
     | '/profile'
+    | '/support'
     | '/vehicles'
     | '/admin/knowledge'
     | '/api/chat'
@@ -240,12 +264,14 @@ export interface RootRouteChildren {
   ConfirmationRoute: typeof ConfirmationRoute
   EvChargingRoute: typeof EvChargingRoute
   FacilitiesRoute: typeof FacilitiesRoute
+  FaqRoute: typeof FaqRoute
   InformationRoute: typeof InformationRoute
   LocationRoute: typeof LocationRoute
   LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
   ParkingRoute: typeof ParkingRoute
   ProfileRoute: typeof ProfileRoute
+  SupportRoute: typeof SupportRoute
   VehiclesRoute: typeof VehiclesRoute
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -308,6 +334,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FacilitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/information': {
       id: '/information'
       path: '/information'
@@ -348,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vehicles': {
@@ -393,12 +433,14 @@ const rootRouteChildren: RootRouteChildren = {
   ConfirmationRoute: ConfirmationRoute,
   EvChargingRoute: EvChargingRoute,
   FacilitiesRoute: FacilitiesRoute,
+  FaqRoute: FaqRoute,
   InformationRoute: InformationRoute,
   LocationRoute: LocationRoute,
   LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
   ParkingRoute: ParkingRoute,
   ProfileRoute: ProfileRoute,
+  SupportRoute: SupportRoute,
   VehiclesRoute: VehiclesRoute,
   ApiChatRoute: ApiChatRoute,
 }

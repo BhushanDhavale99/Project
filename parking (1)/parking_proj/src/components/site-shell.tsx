@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight, Sparkles, Clock, Navigation, Mail, ExternalLink, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -137,8 +137,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               ["/information", "Terms & Conditions"],
               ["/information", "Cancellation & Refund"],
               ["/information", "Parking Rules"],
-              ["/information", "FAQs & Help Center"],
-              ["/assistant",   "Contact Support"],
+              ["/faq",         "FAQs & Help Center"],
+              ["/support",     "Contact Support"],
             ] as const).map(([to, label]) => (
               <li key={label}>
                 <Link
