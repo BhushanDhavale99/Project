@@ -1,9 +1,9 @@
 import ParkingGrid3D from "./ParkingGrid3D";
 import { useMemo, useState } from "react";
-import { CarFront, Zap, Accessibility, Bike, ArrowDown, Navigation, Check, CircleSlash2 } from "lucide-react";
+import { CarFront, Zap, Accessibility, Bike, ArrowDown, Navigation, Check, CircleSlash2, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { parkingSlots, type ParkingSlotData, type SlotStatus } from "@/lib/parking-data";
+import { parkingSlots, type ParkingSlotData, type SlotStatus, FLOOR_CONFIG } from "@/lib/parking-data";
 
 const statusClasses: Record<SlotStatus, string> = {
   available: "border-available/50 bg-available/10 text-available",
@@ -76,33 +76,58 @@ export function ParkingMap({
   return (
     <div className="parking-grid overflow-hidden border border-border bg-surface p-4 sm:p-6">
       {!preview && (
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex gap-1" role="tablist" aria-label="Parking floor">
-            {[1, 2, 3].map((item) => (
-              <Button
-                key={item}
-                size="sm"
-                role="tab"
-                aria-selected={floor === item}
-                variant={floor === item ? "default" : "ghost"}
-                onClick={() => setFloor(item)}
-              >
-                Floor {item}
-              </Button>
-            ))}
+        <div className="mb-5 flex flex-col gap-3">
+          {/* ── Floor selector ── */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-1" role="tablist" aria-label="Parking floor">
+              {(Object.keys(FLOOR_CONFIG) as unknown as number[]).map((id) => {
+                const floorId = Number(id);
+                const { label, category } = FLOOR_CONFIG[floorId]!;
+                return (
+                  <Button
+                    key={floorId}
+                    size="sm"
+                    role="tab"
+                    aria-selected={floor === floorId}
+                    variant={floor === floorId ? "default" : "ghost"}
+                    onClick={() => setFloor(floorId)}
+                    className="font-mono"
+                  >
+                    <span>{label}</span>
+                    <span className="ml-1.5 hidden text-[9px] font-normal capitalize opacity-60 sm:inline">
+                      {category === "basement" ? "↓ Underground" : category === "ground" ? "Ground" : "↑ Upper"}
+                    </span>
+                  </Button>
+                );
+              })}
+            </div>
+            {/* ── Zone selector ── */}
+            <div className="flex gap-1" role="tablist" aria-label="Parking zone">
+              {(["All", "A", "B", "EV"] as const).map((item) => (
+                <Button
+                  key={item}
+                  size="sm"
+                  aria-pressed={zone === item}
+                  variant={zone === item ? "secondary" : "ghost"}
+                  onClick={() => setZone(item)}
+                >
+                  {item === "EV" ? "EV Zone" : item === "All" ? "All zones" : `Zone ${item}`}
+                </Button>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-1" role="tablist" aria-label="Parking zone">
-            {(["All", "A", "B", "EV"] as const).map((item) => (
-              <Button
-                key={item}
-                size="sm"
-                aria-pressed={zone === item}
-                variant={zone === item ? "secondary" : "ghost"}
-                onClick={() => setZone(item)}
-              >
-                {item === "EV" ? "EV Zone" : item === "All" ? "All zones" : `Zone ${item}`}
-              </Button>
-            ))}
+
+          {/* ── Heavy-vehicle notice ── */}
+          <div
+            role="note"
+            className="flex items-start gap-2 rounded-md border border-amber-500/30 bg-amber-500/8 px-3 py-2 text-[11px] text-amber-500"
+          >
+            <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
+            <span>
+              <strong className="font-semibold">Heavy Vehicles</strong> are allowed only on{" "}
+              <strong className="font-semibold">Ground (G1)</strong> and{" "}
+              <strong className="font-semibold">Basement (B1 / B2)</strong> levels.
+            </span>
           </div>
         </div>
       )}

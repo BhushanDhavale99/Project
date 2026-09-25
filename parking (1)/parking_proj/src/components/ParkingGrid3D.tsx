@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ParkingSlotData } from "@/lib/parking-data";
+import { FLOOR_CONFIG } from "@/lib/parking-data";
 import { useReducedMotion, useVisible } from "./effects/useParkingMotion";
 import { MapEffects } from "./effects/ParkingEffects";
 
@@ -90,7 +91,7 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
     <div ref={ref} className="pg3d">
       <div className="pg3d-toolbar">
         <p className="text-xs text-muted-foreground">
-          Floor {activeFloor} · {slots.filter((slot) => slot.status === "available").length}{" "}
+          Floor {FLOOR_CONFIG[activeFloor]?.label ?? activeFloor} · {slots.filter((slot) => slot.status === "available").length}{" "}
           available in view
         </p>
         <div className="flex flex-wrap gap-1" role="group" aria-label="Parking map view controls">
@@ -236,3 +237,4 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
     </div>
   );
 }
+

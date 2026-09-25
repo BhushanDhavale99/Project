@@ -1,5 +1,16 @@
 export type SlotStatus = "available" | "occupied" | "reserved" | "selected" | "maintenance";
 
+export type FloorCategory = "basement" | "ground" | "upper";
+
+/** Maps numeric floor id → display label + structural category */
+export const FLOOR_CONFIG: Record<number, { label: string; category: FloorCategory }> = {
+  1: { label: "B1", category: "basement" },
+  2: { label: "B2", category: "basement" },
+  3: { label: "G1", category: "ground"  },
+  4: { label: "L1", category: "upper"   },
+  5: { label: "L2", category: "upper"   },
+};
+
 export type ParkingSlotData = {
   id: string;
   floor: number;
@@ -25,8 +36,8 @@ const states: SlotStatus[] = [
   "reserved",
 ];
 
-export const parkingSlots: ParkingSlotData[] = Array.from({ length: 36 }, (_, index) => {
-  const floor = Math.floor(index / 12) + 1;
+export const parkingSlots: ParkingSlotData[] = Array.from({ length: 60 }, (_, index) => {
+  const floor = Math.floor(index / 12) + 1;        // 1-5
   const localIndex = index % 12;
   const zone = localIndex >= 8 ? "EV" : localIndex >= 4 ? "B" : "A";
   const prefix = zone === "EV" ? "E" : zone;
