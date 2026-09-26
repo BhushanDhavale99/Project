@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight, Sparkles, Clock, Navigation, Mail, ExternalLink, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,10 +25,21 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    if (typeof window === "undefined") return true;
-    return sessionStorage.getItem("parkgrid_authenticated") === "true";
-  });
+  // Default to false (show Login) on both server and client.
+  // On the server `window` / `sessionStorage` are unavailable, so we can never
+  // know the auth state — rendering the full main site in SSR HTML was the root
+  // cause of the 5-10 s Login delay (hydration had to fix it up after the fact).
+  //
+  // useLayoutEffect fires synchronously before the browser paints, so an
+  // already-authenticated user will never see a Login flash: the state is
+  // corrected before the first frame is drawn.
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem("parkgrid_authenticated") === "true") {
+      setIsAuthenticated(true);
+    }
+  }, []);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const path = useRouterState({ select: (state) => state.location.pathname });
