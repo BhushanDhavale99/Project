@@ -11,6 +11,20 @@ import { Button } from "@/components/ui/button";
 import { Palette, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Returns the three swatch colors for a theme: [bg, accent, text].
+ * These are approximate hex values to keep the component self-contained
+ * (CSS vars aren't readable at render time without getComputedStyle).
+ */
+const THEME_SWATCHES: Record<ThemeId, [string, string, string]> = {
+  dark:    ["#0f172a", "#00f0ff", "#f0f9ff"],
+  light:   ["#f8fafc", "#0891b2", "#1e293b"],
+  ocean:   ["#09172e", "#38bdf8", "#e0f2fe"],
+  cyber:   ["#090d16", "#22c55e", "#f0fdf4"],
+  sunset:  ["#1a0b2e", "#f59e0b", "#fefce8"],
+  premium: ["#14120e", "#eab308", "#fefce8"],
+};
+
 interface ThemeSelectorProps {
   className?: string;
   variant?: "dropdown" | "grid";
@@ -27,13 +41,14 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
         {THEMES.map((t) => {
           const Icon = t.icon;
           const isActive = theme === t.id;
+          const [bgSwatch, accentSwatch, textSwatch] = THEME_SWATCHES[t.id];
           return (
             <button
               key={t.id}
               type="button"
               onClick={() => setTheme(t.id)}
               className={cn(
-                "relative flex items-center gap-3.5 rounded-lg border p-3.5 text-left transition-all",
+                "relative flex items-center gap-3.5 rounded-lg border p-3.5 text-left transition-all duration-250",
                 isActive
                   ? "border-primary bg-primary/10 shadow-[0_0_15px_var(--primary-glow)] ring-1 ring-primary"
                   : "border-border bg-surface hover:border-primary/50 hover:bg-accent/50"
@@ -50,10 +65,24 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
                   <span className="font-display text-sm font-semibold text-foreground">
                     {t.name}
                   </span>
-                  <span
-                    className="size-2 rounded-full"
-                    style={{ backgroundColor: t.color, boxShadow: `0 0 6px ${t.color}` }}
-                  />
+                  {/* 3 color swatches: bg, accent, text */}
+                  <span className="flex gap-0.5">
+                    <span
+                      className="size-2 rounded-full border border-white/10"
+                      style={{ backgroundColor: bgSwatch }}
+                      title="Background"
+                    />
+                    <span
+                      className="size-2 rounded-full border border-white/10"
+                      style={{ backgroundColor: accentSwatch }}
+                      title="Accent"
+                    />
+                    <span
+                      className="size-2 rounded-full border border-white/10"
+                      style={{ backgroundColor: textSwatch }}
+                      title="Text"
+                    />
+                  </span>
                 </div>
                 <span className="block truncate text-xs text-muted-foreground">
                   {t.subtitle}
@@ -78,7 +107,7 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
           size="sm"
           variant="ghost"
           className={cn(
-            "flex items-center gap-1.5 px-2.5 text-xs text-muted-foreground transition hover:text-foreground hover:bg-accent focus-visible:ring-1",
+            "flex items-center gap-1.5 px-2.5 text-xs text-muted-foreground transition-colors duration-250 hover:text-foreground hover:bg-accent focus-visible:ring-1",
             className
           )}
           aria-label={`Change theme (Current: ${currentConfig!.name})`}
@@ -88,14 +117,20 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
           <span className="hidden sm:inline-block font-mono text-[11px] uppercase tracking-wider">
             {currentConfig!.name}
           </span>
-          <span
-            className="size-2 rounded-full hidden sm:inline-block ml-0.5"
-            style={{ backgroundColor: currentConfig!.color, boxShadow: `0 0 8px ${currentConfig!.color}` }}
-          />
+          {/* 3 tiny swatches next to the label */}
+          <span className="hidden sm:flex gap-0.5 ml-0.5">
+            {THEME_SWATCHES[currentConfig!.id].map((color, i) => (
+              <span
+                key={i}
+                className="size-2 rounded-full border border-white/10"
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </span>
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56 p-1.5 backdrop-blur-xl">
+      <DropdownMenuContent align="end" className="w-60 p-1.5 backdrop-blur-xl">
         <DropdownMenuLabel className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground px-2 py-1.5">
           Select Theme
         </DropdownMenuLabel>
@@ -104,12 +139,13 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
         {THEMES.map((t) => {
           const Icon = t.icon;
           const isActive = theme === t.id;
+          const [bgSwatch, accentSwatch, textSwatch] = THEME_SWATCHES[t.id];
           return (
             <DropdownMenuItem
               key={t.id}
               onClick={() => setTheme(t.id)}
               className={cn(
-                "flex items-center justify-between cursor-pointer rounded-md px-2.5 py-2 text-xs transition-colors",
+                "flex items-center justify-between cursor-pointer rounded-md px-2.5 py-2 text-xs transition-colors duration-250",
                 isActive ? "bg-primary/15 text-primary font-medium" : "hover:bg-accent"
               )}
             >
@@ -129,10 +165,21 @@ export function ThemeSelector({ className, variant = "dropdown" }: ThemeSelector
               </div>
 
               <div className="flex items-center gap-2">
-                <span
-                  className="size-2 rounded-full"
-                  style={{ backgroundColor: t.color, boxShadow: `0 0 6px ${t.color}` }}
-                />
+                {/* 3 color swatches: bg · accent · text */}
+                <span className="flex gap-0.5" title="bg · accent · text">
+                  <span
+                    className="size-2.5 rounded-full border border-white/10"
+                    style={{ backgroundColor: bgSwatch }}
+                  />
+                  <span
+                    className="size-2.5 rounded-full border border-white/10"
+                    style={{ backgroundColor: accentSwatch, boxShadow: `0 0 4px ${accentSwatch}` }}
+                  />
+                  <span
+                    className="size-2.5 rounded-full border border-white/10"
+                    style={{ backgroundColor: textSwatch }}
+                  />
+                </span>
                 {isActive && <Check className="size-3.5 text-primary stroke-[3]" />}
               </div>
             </DropdownMenuItem>

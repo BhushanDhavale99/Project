@@ -343,12 +343,14 @@
   --card-foreground: oklch(0.98 0.01 60);
   --popover: oklch(0.185 0.05 315);
   --popover-foreground: oklch(0.98 0.01 60);
-  --primary: oklch(0.76 0.18 55);
-  --primary-foreground: oklch(0.12 0.04 55);
+  /* Primary raised for WCAG AA contrast on dark Sunset bg */
+  --primary: oklch(0.82 0.19 58);
+  --primary-foreground: oklch(0.10 0.04 55);
   --secondary: oklch(0.25 0.06 315);
   --secondary-foreground: oklch(0.98 0.01 60);
   --muted: oklch(0.22 0.04 315);
-  --muted-foreground: oklch(0.72 0.04 330);
+  /* Muted foreground raised to pass 4.5:1 on dark surface */
+  --muted-foreground: oklch(0.78 0.045 330);
   --accent: oklch(0.28 0.07 315);
   --accent-foreground: oklch(0.98 0.01 60);
   --destructive: oklch(0.65 0.22 25);
@@ -394,12 +396,14 @@
   --card-foreground: oklch(0.96 0.015 85);
   --popover: oklch(0.16 0.022 85);
   --popover-foreground: oklch(0.96 0.015 85);
-  --primary: oklch(0.78 0.14 85);
-  --primary-foreground: oklch(0.1 0.02 85);
+  /* Primary gold boosted for WCAG AA readability */
+  --primary: oklch(0.84 0.17 86);
+  --primary-foreground: oklch(0.09 0.02 85);
   --secondary: oklch(0.22 0.03 85);
   --secondary-foreground: oklch(0.96 0.015 85);
   --muted: oklch(0.2 0.02 85);
-  --muted-foreground: oklch(0.68 0.03 85);
+  /* Muted foreground raised for AA on dark Premium surfaces */
+  --muted-foreground: oklch(0.74 0.035 85);
   --accent: oklch(0.25 0.035 85);
   --accent-foreground: oklch(0.96 0.015 85);
   --destructive: oklch(0.64 0.2 25);
@@ -447,8 +451,13 @@
     transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  body, header, nav, article, section, aside, footer {
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease, box-shadow 0.25s ease;
+  body, header, nav, article, section, aside, footer,
+  div, span, p, h1, h2, h3, h4, h5, h6, a, button {
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
   body {
@@ -489,7 +498,16 @@
   .section-reveal.is-visible { opacity:1; transform:translateY(0); }
   .stagger-item { animation:page-enter .55s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--reveal-delay,0ms); }
   .interactive-lift { transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
-  .interactive-lift:hover, .interactive-lift:focus-within { transform:translateY(-3px); border-color:color-mix(in oklch,var(--primary) 45%,var(--border)); box-shadow:0 14px 34px oklch(0.12 0.02 240 / 12%); }
+  .interactive-lift:hover, .interactive-lift:focus-within { transform:translateY(-4px); border-color:var(--primary); box-shadow:0 8px 24px var(--primary-glow), 0 14px 34px oklch(0.12 0.02 240 / 12%); }
+  /* Parking slot accent pulse on click */
+  .slot-click-pulse { animation: slot-accent-pulse 0.32s cubic-bezier(.22,1,.36,1); }
+  /* Stats → live map subtle glow divider */
+  .stats-map-bridge { position:relative; }
+  .stats-map-bridge::before { content:""; position:absolute; inset-x:0; top:0; height:1px; background:linear-gradient(90deg,transparent 0%,var(--primary) 50%,transparent 100%); opacity:.3; pointer-events:none; }
+  .stats-map-bridge::after { content:""; position:absolute; inset-x:0; top:0; height:80px; background:radial-gradient(ellipse at 50% 0%,var(--primary-glow) 0%,transparent 70%); pointer-events:none; }
+  /* Add-vehicle dashed empty state */
+  .add-vehicle-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.65rem; min-height:16rem; border:2px dashed var(--border); background:transparent; color:var(--muted-foreground); cursor:pointer; transition:border-color .22s ease, background .22s ease, box-shadow .22s ease, color .22s ease; }
+  .add-vehicle-empty:hover,.add-vehicle-empty:focus-visible { border-color:var(--primary); background:color-mix(in oklch,var(--primary) 5%,transparent); box-shadow:0 0 20px var(--primary-glow); color:var(--primary); outline:none; }
   .pressable { transition:transform .18s ease; }
   .pressable:active { transform:scale(.98); }
   .selection-pulse { animation:selection-pulse .45s cubic-bezier(.22,1,.36,1); }
@@ -595,3 +613,5 @@
   }
 }
 @keyframes ai-radar { 0% { transform:scale(1); opacity:.6; } 100% { transform:scale(2.4); opacity:0; } }
+
+@keyframes slot-accent-pulse { 0% { box-shadow:0 0 0 0 var(--primary-glow); } 40% { box-shadow:0 0 0 10px var(--primary-glow); } 100% { box-shadow:0 0 0 0 var(--primary-glow); } }

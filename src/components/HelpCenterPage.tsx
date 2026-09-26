@@ -410,7 +410,7 @@ export function HelpCenterPage() {
                       key={item.id}
                       value={item.id}
                       id={`faq-${item.id}`}
-                      className="border border-border bg-surface transition-colors data-[state=open]:border-primary/50"
+                      className="interactive-lift border border-border bg-surface transition-colors data-[state=open]:border-primary/50"
                     >
                       <AccordionTrigger className="px-5 py-4 hover:no-underline [&[data-state=open]]:bg-accent/30">
                         <div className="flex flex-1 items-start gap-3.5 text-left">
@@ -551,7 +551,7 @@ export function HelpCenterPage() {
           {/* ── Sidebar: Quick Navigation & Support Concierge ── */}
           <aside className="space-y-6">
             {/* Quick Contact Card */}
-            <div className="border border-border bg-surface p-6">
+            <div className="interactive-lift border border-border bg-surface p-6">
               <span className="font-mono text-[10px] uppercase tracking-widest text-primary">
                 Need Fast Resolution?
               </span>
@@ -599,7 +599,7 @@ export function HelpCenterPage() {
             </div>
 
             {/* Quick Rules Snapshot */}
-            <div className="border border-border bg-surface p-5 text-xs">
+            <div className="interactive-lift border border-border bg-surface p-5 text-xs">
               <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                 Quick Facility Rules
               </span>
@@ -628,7 +628,7 @@ export function HelpCenterPage() {
             </div>
 
             {/* RAG Knowledge Base link */}
-            <div className="border border-border/80 bg-primary/5 p-5">
+            <div className="interactive-lift border border-border/80 bg-primary/5 p-5">
               <div className="flex items-center gap-2 text-primary">
                 <Sparkles className="size-4" />
                 <span className="font-mono text-[10px] uppercase tracking-wider font-semibold">

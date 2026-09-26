@@ -24,6 +24,7 @@ interface Props {
   selectedSlot: ParkingSlotData | null;
   onSelectSlot: (slot: ParkingSlotData) => void;
   activeFloor: number;
+  pulsing?: string | null;
 }
 const INITIAL = { x: 35, y: -10 };
 const COLORS = {
@@ -34,7 +35,7 @@ const COLORS = {
   maintenance: "var(--muted-foreground)",
 };
 
-export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activeFloor }: Props) {
+export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activeFloor, pulsing }: Props) {
   const reduced = useReducedMotion();
   const { ref, visible } = useVisible<HTMLDivElement>();
   const host = useRef<HTMLDivElement>(null);
@@ -190,7 +191,7 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
               >
                 <motion.button
                   type="button"
-                  className="pg3d-slot"
+                  className={`pg3d-slot${pulsing === slot.id ? ' slot-click-pulse' : ''}`}
                   aria-label={`${slot.id}, ${slot.status}, ${slot.type}, ₹${slot.price} per hour`}
                   aria-disabled={slot.status !== "available"}
                   aria-pressed={selected}

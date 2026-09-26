@@ -1,3 +1,2 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { EVPage } from "@/components/app-pages";
-export const Route = createFileRoute("/ev-charging")({ head:()=>({meta:[{title:"EV Charging — ParkGrid One"},{name:"description",content:"Book and monitor fast EV charging at ParkGrid One."},{property:"og:title",content:"EV Charging — ParkGrid One"},{property:"og:description",content:"Book and monitor fast EV charging at ParkGrid One."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:EVPage });
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+export const Route = createFileRoute("/ev-charging")({ head:()=>({meta:[{title:"EV Charging — ParkGrid One"},{name:"description",content:"Book and monitor fast EV charging at ParkGrid One."},{property:"og:title",content:"EV Charging — ParkGrid One"},{property:"og:description",content:"Book and monitor fast EV charging at ParkGrid One."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:lazyRouteComponent(() => import("@/components/app-pages"), "EVPage") });

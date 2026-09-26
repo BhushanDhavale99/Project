@@ -1,21 +1,48 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight, Sparkles, Clock, Navigation, Mail, ExternalLink, ChevronRight } from "lucide-react";
+import {
+  Bot, Menu, X, MapPin, UserRound, Bell, ArrowUpRight,
+  Sparkles, Clock, Navigation, Mail, ExternalLink, ChevronRight,
+  ChevronDown, HelpCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import parkGridLogo from "@/assets/parkgrid-logo.png";
-import { OpeningAnimation, replayParkingIntro } from "@/components/effects/OpeningAnimation";
 import { ThemeSelector } from "@/components/ThemeSelector";
-import { CustomCursor } from "@/components/effects/CustomCursor";
-import { LoginPage } from "@/components/LoginPage";
 
-const links = [
+/** Lazy-loaded heavy effects — never parsed during the login phase */
+const OpeningAnimation = lazy(() =>
+  import("@/components/effects/OpeningAnimation").then((m) => ({ default: m.OpeningAnimation }))
+);
+const CustomCursor = lazy(() =>
+  import("@/components/effects/CustomCursor").then((m) => ({ default: m.CustomCursor }))
+);
+
+/** Inline replay helper — dispatches the same event OpeningAnimation already listens for */
+function replayParkingIntro() {
+  if (typeof window !== "undefined") {
+    sessionStorage.removeItem("parkgrid_seen_intro");
+    window.dispatchEvent(new CustomEvent("replay-parking-intro"));
+  }
+}
+import { LoginPage } from "@/components/LoginPage";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const mainLinks = [
   ["/", "Home"],
   ["/parking", "Parking"],
   ["/facilities", "Facilities"],
   ["/location", "Location"],
   ["/assistant", "AI Assistant"],
   ["/bookings", "My Bookings"],
+] as const;
+
+const supportLinks = [
   ["/faq", "FAQs & Help Center"],
   ["/support", "Contact Support"],
 ] as const;
@@ -25,14 +52,6 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  // Default to false (show Login) on both server and client.
-  // On the server `window` / `sessionStorage` are unavailable, so we can never
-  // know the auth state — rendering the full main site in SSR HTML was the root
-  // cause of the 5-10 s Login delay (hydration had to fix it up after the fact).
-  //
-  // useLayoutEffect fires synchronously before the browser paints, so an
-  // already-authenticated user will never see a Login flash: the state is
-  // corrected before the first frame is drawn.
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useLayoutEffect(() => {
@@ -57,18 +76,24 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("parkgrid-logout", handleLogout);
   }, []);
 
+  /* Helper: is path active for a link */
+  const isActive = (to: string) => path === to || (to !== "/" && path.startsWith(`${to}/`));
+  /* Is any support page active */
+  const supportActive = supportLinks.some(([to]) => isActive(to));
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <CustomCursor />
+        {/* CustomCursor intentionally omitted on login — its rAF loop starts immediately
+            and would block main-thread interactivity before the user has logged in. */}
         <LoginPage
           onLoginSuccess={() => {
             sessionStorage.setItem("parkgrid_authenticated", "true");
             sessionStorage.removeItem("parkgrid_seen_intro");
             setIsAuthenticated(true);
-            setTimeout(() => {
-              replayParkingIntro();
-            }, 100);
+            // No setTimeout — replay is dispatched as a CustomEvent; OpeningAnimation
+            // picks it up once it mounts (post-auth) via its own event listener.
+            replayParkingIntro();
           }}
         />
       </div>
@@ -76,16 +101,62 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   }
 
   return <div className="min-h-screen bg-background text-foreground">
-    <CustomCursor />
-    <OpeningAnimation />
+    <Suspense fallback={null}><CustomCursor /></Suspense>
+    <Suspense fallback={null}><OpeningAnimation /></Suspense>
     <header className={cn("fixed inset-x-0 top-0 z-50 border-b transition-all duration-300", scrolled ? "border-border/80 bg-background/90 py-2 shadow-lg backdrop-blur-xl" : "border-transparent bg-transparent py-4")}>
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link to="/" aria-label="ParkGrid One home"><BrandMark /></Link>
-        <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Main navigation">{links.map(([to,label]) => { const active=path===to || (to!=="/" && path.startsWith(`${to}/`)); return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={cn("relative whitespace-nowrap rounded-md px-2.5 xl:px-3 py-2 text-xs font-medium transition hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:inset-x-2.5 xl:after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform", active && "text-primary after:scale-x-100")}>{label}</Link>; })}</nav>
+        <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Main navigation">
+          {mainLinks.map(([to, label]) => {
+            const active = isActive(to);
+            return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={cn("relative whitespace-nowrap rounded-md px-2.5 xl:px-3 py-2 text-xs font-medium transition-colors duration-250 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring after:absolute after:inset-x-2.5 xl:after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform", active && "text-primary after:scale-x-100")}>{label}</Link>;
+          })}
+
+          {/* Support dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className={cn(
+                  "relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 xl:px-3 py-2 text-xs font-medium transition-colors duration-250 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  supportActive && "text-primary"
+                )}
+              >
+                <HelpCircle className="size-3.5" />
+                Support
+                <ChevronDown className="size-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-52 p-1.5 backdrop-blur-xl">
+              {supportLinks.map(([to, label]) => (
+                <DropdownMenuItem key={to} asChild>
+                  <Link
+                    to={to}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer rounded-md px-2.5 py-2 text-xs transition-colors",
+                      isActive(to) ? "bg-primary/15 text-primary font-medium" : "hover:bg-accent"
+                    )}
+                  >
+                    <ChevronRight className="size-3 text-primary" />
+                    {label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </nav>
         <div className="flex items-center gap-2">
           <ThemeSelector />
-          <Button size="sm" variant="ghost" onClick={replayParkingIntro} title="Replay Opening Animation" className="hidden xl:inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-cyan-400">
-            <Sparkles className="size-3.5 text-cyan-400" /> Intro
+          {/* Watch Intro – small icon + label near theme switcher */}
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={replayParkingIntro}
+            title="Watch Opening Intro"
+            className="hidden xl:inline-flex items-center gap-1.5 px-2 text-xs text-muted-foreground hover:text-cyan-400 transition-colors duration-250"
+          >
+            <Sparkles className="size-3.5 text-cyan-400" />
+            <span className="font-mono text-[11px] uppercase tracking-wider">Intro</span>
           </Button>
           <Link to="/profile" className="hidden sm:block" aria-label="Profile"><Button size="icon" variant="ghost" aria-label="Profile"><UserRound /></Button></Link>
           <Link to="/notifications" className="hidden sm:block" aria-label="Notifications"><Button size="icon" variant="ghost" aria-label="Notifications"><Bell /></Button></Link>
@@ -95,18 +166,28 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </div>
       <div className={cn("grid transition-[grid-template-rows,opacity] duration-300 lg:hidden", open ? "grid-rows-[1fr] opacity-100" : "pointer-events-none grid-rows-[0fr] opacity-0")}>
         <nav id="mobile-navigation" className="mx-4 mt-3 grid overflow-hidden border border-border bg-surface p-2 shadow-xl" aria-label="Mobile navigation">
-          {links.map(([to,label], index) => <Link key={to} to={to} aria-current={path===to ? "page" : undefined} onClick={() => setOpen(false)} className="rounded-md px-4 py-3 text-sm transition hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring" style={{ transitionDelay: open ? `${index*30}ms` : "0ms" }}>{label}</Link>)}
+          {mainLinks.map(([to, label], index) => <Link key={to} to={to} aria-current={path === to ? "page" : undefined} onClick={() => setOpen(false)} className="rounded-md px-4 py-3 text-sm transition hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring" style={{ transitionDelay: open ? `${index * 30}ms` : "0ms" }}>{label}</Link>)}
+          {/* Support links in mobile nav */}
+          <div className="border-t border-border/60 my-1 pt-1">
+            <span className="block px-4 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Support</span>
+            {supportLinks.map(([to, label], index) => (
+              <Link key={to} to={to} aria-current={path === to ? "page" : undefined} onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-md px-4 py-3 text-sm transition hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring" style={{ transitionDelay: open ? `${(mainLinks.length + index) * 30}ms` : "0ms" }}>
+                <ChevronRight className="size-3 text-primary" />
+                {label}
+              </Link>
+            ))}
+          </div>
           <div className="border-t border-border/80 my-1 pt-2 px-2">
             <span className="block text-[10px] font-mono uppercase text-muted-foreground mb-1.5">Theme</span>
             <ThemeSelector className="w-full justify-start py-2.5 px-3 border border-border" />
           </div>
           <button type="button" onClick={() => { setOpen(false); replayParkingIntro(); }} className="flex items-center gap-2 rounded-md px-4 py-3 text-left text-sm text-cyan-400 transition hover:bg-accent">
-            <Sparkles className="size-4" /> Replay Opening Animation
+            <Sparkles className="size-4" /> Watch Intro
           </button>
         </nav>
       </div>
     </header>
-    <main>{children}</main>
+    <main><Suspense fallback={<div className="min-h-[50vh] bg-background" />}>{children}</Suspense></main>
     <Link to="/assistant" className="group fixed bottom-4 right-4 z-40 sm:bottom-5 sm:right-5" aria-label="Ask Parking AI"><span className="flex size-12 items-center justify-center rounded-full border border-primary/30 bg-primary text-primary-foreground shadow-[0_8px_32px_var(--primary-glow)] transition group-hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-ring sm:size-14"><Bot className="size-6" /></span><span className="pointer-events-none absolute right-16 top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-md bg-foreground px-3 py-2 text-xs text-background opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 sm:block">Ask Parking AI</span></Link>
     <footer className="border-t border-border bg-surface" aria-label="Site footer">
       {/* ── Top grid ── */}
@@ -219,4 +300,3 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     </footer>
   </div>;
 }
-

@@ -1,5 +1,5 @@
-import ParkingGrid3D from "./ParkingGrid3D";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
+const ParkingGrid3D = lazy(() => import("./ParkingGrid3D"));
 import { CarFront, Zap, Accessibility, Bike, ArrowDown, Navigation, Check, CircleSlash2, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -68,10 +68,16 @@ export function ParkingMap({
     [floor, preview, zone],
   );
   const [announcement, setAnnouncement] = useState("");
+  const [pulsing, setPulsing] = useState<string | null>(null);
   const choose = (slot: ParkingSlotData) => {
-    setSelected(slot);
-    setAnnouncement(`${slot.id} selected`);
-    onSelection?.(slot);
+    // Pulse the slot with accent glow before updating selection
+    setPulsing(slot.id);
+    setTimeout(() => {
+      setSelected(slot);
+      setAnnouncement(`${slot.id} selected`);
+      onSelection?.(slot);
+      setPulsing(null);
+    }, 300);
   };
   return (
     <div className="parking-grid overflow-hidden border border-border bg-surface p-4 sm:p-6">
@@ -138,13 +144,23 @@ export function ParkingMap({
         </span>
         <span>Exit</span>
       </div>
-      <ParkingGrid3D
-        key={`${floor}-${zone}`}
-        slots={slots}
-        selectedSlot={selected}
-        onSelectSlot={choose}
-        activeFloor={floor}
-      />
+      <Suspense
+        fallback={
+          <div className="flex min-h-[320px] flex-col items-center justify-center gap-2 rounded-lg border border-border/40 bg-surface/60 font-mono text-xs text-muted-foreground">
+            <span className="live-dot" />
+            <span>Loading 3D Parking Grid...</span>
+          </div>
+        }
+      >
+        <ParkingGrid3D
+          key={`${floor}-${zone}`}
+          slots={slots}
+          selectedSlot={selected}
+          onSelectSlot={choose}
+          activeFloor={floor}
+          pulsing={pulsing}
+        />
+      </Suspense>
       <p className="sr-only" aria-live="polite">
         {announcement}
       </p>
