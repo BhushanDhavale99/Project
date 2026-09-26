@@ -1,9 +1,24 @@
 import { lazy, Suspense, useMemo, useState } from "react";
 const ParkingGrid3D = lazy(() => import("./ParkingGrid3D"));
-import { CarFront, Zap, Accessibility, Bike, ArrowDown, Navigation, Check, CircleSlash2, TriangleAlert } from "lucide-react";
+import {
+  CarFront,
+  Zap,
+  Accessibility,
+  Bike,
+  ArrowDown,
+  Navigation,
+  Check,
+  CircleSlash2,
+  TriangleAlert,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { parkingSlots, type ParkingSlotData, type SlotStatus, FLOOR_CONFIG } from "@/lib/parking-data";
+import {
+  parkingSlots,
+  type ParkingSlotData,
+  type SlotStatus,
+  FLOOR_CONFIG,
+} from "@/lib/parking-data";
 
 const statusClasses: Record<SlotStatus, string> = {
   available: "border-available/50 bg-available/10 text-available",
@@ -13,19 +28,53 @@ const statusClasses: Record<SlotStatus, string> = {
   maintenance: "border-muted-foreground/40 bg-muted text-muted-foreground",
 };
 
-export function StatusBadge({ status }: { status: SlotStatus | "active" | "completed" | "cancelled" }) {
+export function StatusBadge({
+  status,
+}: {
+  status: SlotStatus | "active" | "completed" | "cancelled";
+}) {
   const tones: Record<string, string> = {
-    available: "bg-available/12 text-available", occupied: "bg-occupied/12 text-occupied",
-    reserved: "bg-reserved/12 text-reserved", selected: "bg-selected/12 text-selected",
-    active: "bg-selected/12 text-selected", completed: "bg-muted text-muted-foreground",
-    cancelled: "bg-occupied/12 text-occupied", maintenance: "bg-muted text-muted-foreground",
+    available: "bg-available/12 text-available",
+    occupied: "bg-occupied/12 text-occupied",
+    reserved: "bg-reserved/12 text-reserved",
+    selected: "bg-selected/12 text-selected",
+    active: "bg-selected/12 text-selected",
+    completed: "bg-muted text-muted-foreground",
+    cancelled: "bg-occupied/12 text-occupied",
+    maintenance: "bg-muted text-muted-foreground",
   };
-  return <span className={cn("inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase", tones[status])}>{status}</span>;
+  return (
+    <span
+      className={cn(
+        "inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase",
+        tones[status],
+      )}
+    >
+      {status}
+    </span>
+  );
 }
 
-export function ParkingSlot({ slot, selected, onSelect, compact = false }: { slot: ParkingSlotData; selected?: boolean; onSelect?: (slot: ParkingSlotData) => void; compact?: boolean }) {
+export function ParkingSlot({
+  slot,
+  selected,
+  onSelect,
+  compact = false,
+}: {
+  slot: ParkingSlotData;
+  selected?: boolean;
+  onSelect?: (slot: ParkingSlotData) => void;
+  compact?: boolean;
+}) {
   const disabled = slot.status !== "available";
-  const Icon = slot.type === "EV" ? Zap : slot.type === "Bike" ? Bike : slot.type === "Accessible" ? Accessibility : CarFront;
+  const Icon =
+    slot.type === "EV"
+      ? Zap
+      : slot.type === "Bike"
+        ? Bike
+        : slot.type === "Accessible"
+          ? Accessibility
+          : CarFront;
   const displayStatus = selected ? "selected" : slot.status;
   return (
     <button
@@ -33,7 +82,11 @@ export function ParkingSlot({ slot, selected, onSelect, compact = false }: { slo
       aria-label={`${slot.id}, ${slot.status}, ${slot.type}`}
       aria-pressed={!disabled ? Boolean(selected) : undefined}
       aria-describedby={`${slot.id}-status`}
-      title={disabled ? `${slot.id} is ${slot.status} and cannot be selected` : `Select ${slot.id}, ₹${slot.price} per hour`}
+      title={
+        disabled
+          ? `${slot.id} is ${slot.status} and cannot be selected`
+          : `Select ${slot.id}, ₹${slot.price} per hour`
+      }
       disabled={disabled}
       onClick={() => onSelect?.(slot)}
       className={cn(
@@ -43,8 +96,22 @@ export function ParkingSlot({ slot, selected, onSelect, compact = false }: { slo
         !disabled && "hover:-translate-y-1 hover:scale-[1.02]",
       )}
     >
-       <div className="flex w-full items-start justify-between gap-1"><span className="font-mono text-xs font-bold">{slot.id}</span>{selected ? <Check className="size-4" aria-hidden="true" /> : disabled ? <CircleSlash2 className="size-4" aria-hidden="true" /> : <Icon className="size-4" aria-hidden="true" />}</div>
-       {!compact && <div id={`${slot.id}-status`}><p className="text-[10px] font-medium capitalize opacity-80">{slot.status}</p><p className="text-[10px] opacity-75">₹{slot.price}/hr</p></div>}
+      <div className="flex w-full items-start justify-between gap-1">
+        <span className="font-mono text-xs font-bold">{slot.id}</span>
+        {selected ? (
+          <Check className="size-4" aria-hidden="true" />
+        ) : disabled ? (
+          <CircleSlash2 className="size-4" aria-hidden="true" />
+        ) : (
+          <Icon className="size-4" aria-hidden="true" />
+        )}
+      </div>
+      {!compact && (
+        <div id={`${slot.id}-status`}>
+          <p className="text-[10px] font-medium capitalize opacity-80">{slot.status}</p>
+          <p className="text-[10px] opacity-75">₹{slot.price}/hr</p>
+        </div>
+      )}
       <span className="absolute inset-x-2 bottom-1 h-px bg-current opacity-20" />
     </button>
   );
@@ -101,7 +168,11 @@ export function ParkingMap({
                   >
                     <span>{label}</span>
                     <span className="ml-1.5 hidden text-[9px] font-normal capitalize opacity-60 sm:inline">
-                      {category === "basement" ? "↓ Underground" : category === "ground" ? "Ground" : "↑ Upper"}
+                      {category === "basement"
+                        ? "↓ Underground"
+                        : category === "ground"
+                          ? "Ground"
+                          : "↑ Upper"}
                     </span>
                   </Button>
                 );
@@ -192,6 +263,22 @@ export function ParkingMap({
   );
 }
 
-export function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
-  return <div className="max-w-2xl"><p className="mb-3 font-mono text-[11px] uppercase tracking-[0.22em] text-primary">{eyebrow}</p><h2 className="font-display text-3xl font-semibold leading-tight sm:text-5xl">{title}</h2>{copy && <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{copy}</p>}</div>;
+export function SectionHeading({
+  eyebrow,
+  title,
+  copy,
+}: {
+  eyebrow: string;
+  title: string;
+  copy?: string;
+}) {
+  return (
+    <div className="max-w-2xl">
+      <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.22em] text-primary">
+        {eyebrow}
+      </p>
+      <h2 className="font-display text-3xl font-semibold leading-tight sm:text-5xl">{title}</h2>
+      {copy && <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{copy}</p>}
+    </div>
+  );
 }

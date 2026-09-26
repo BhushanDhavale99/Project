@@ -110,26 +110,54 @@ export function ContactSupportPage() {
   const getStatusBadge = (status: TicketStatus) => {
     switch (status) {
       case "Open":
-        return <Badge className="bg-primary/20 text-primary border-primary/40 font-mono text-[10px]">Open</Badge>;
+        return (
+          <Badge className="bg-primary/20 text-primary border-primary/40 font-mono text-[10px]">
+            Open
+          </Badge>
+        );
       case "In Progress":
-        return <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/40 font-mono text-[10px]">In Progress</Badge>;
+        return (
+          <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/40 font-mono text-[10px]">
+            In Progress
+          </Badge>
+        );
       case "Resolved":
-        return <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 font-mono text-[10px]">Resolved</Badge>;
+        return (
+          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 font-mono text-[10px]">
+            Resolved
+          </Badge>
+        );
       case "Closed":
-        return <Badge className="bg-muted text-muted-foreground border-border font-mono text-[10px]">Closed</Badge>;
+        return (
+          <Badge className="bg-muted text-muted-foreground border-border font-mono text-[10px]">
+            Closed
+          </Badge>
+        );
     }
   };
 
   const getPriorityBadge = (priority: TicketPriority) => {
     switch (priority) {
       case "Urgent":
-        return <span className="font-mono text-[10px] text-rose-400 font-bold uppercase">⚡ Urgent Priority</span>;
+        return (
+          <span className="font-mono text-[10px] text-rose-400 font-bold uppercase">
+            ⚡ Urgent Priority
+          </span>
+        );
       case "High":
-        return <span className="font-mono text-[10px] text-amber-400 font-semibold uppercase">▲ High Priority</span>;
+        return (
+          <span className="font-mono text-[10px] text-amber-400 font-semibold uppercase">
+            ▲ High Priority
+          </span>
+        );
       case "Normal":
-        return <span className="font-mono text-[10px] text-muted-foreground uppercase">● Normal</span>;
+        return (
+          <span className="font-mono text-[10px] text-muted-foreground uppercase">● Normal</span>
+        );
       case "Low":
-        return <span className="font-mono text-[10px] text-muted-foreground/70 uppercase">▽ Low</span>;
+        return (
+          <span className="font-mono text-[10px] text-muted-foreground/70 uppercase">▽ Low</span>
+        );
     }
   };
 
@@ -160,18 +188,24 @@ export function ContactSupportPage() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
+                <Link to="/" className="text-muted-foreground hover:text-foreground">
+                  Home
+                </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/faq" className="text-muted-foreground hover:text-foreground">Help Center</Link>
+                <Link to="/faq" className="text-muted-foreground hover:text-foreground">
+                  Help Center
+                </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-primary">Contact Support</BreadcrumbPage>
+              <BreadcrumbPage className="font-semibold text-primary">
+                Contact Support
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -186,8 +220,8 @@ export function ContactSupportPage() {
               Contact Support
             </h1>
             <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg">
-              Have an issue with your parking slot, barrier access, payment, or EV charging?
-              Submit an official ticket or connect with our 24/7 on-site facility marshals.
+              Have an issue with your parking slot, barrier access, payment, or EV charging? Submit
+              an official ticket or connect with our 24/7 on-site facility marshals.
             </p>
           </div>
         </div>
@@ -204,15 +238,18 @@ export function ContactSupportPage() {
                   </span>
                 </div>
                 <h3 className="font-display text-2xl font-bold">
-                  Reference: <span className="text-primary font-mono">{submittedTicket.ticketId}</span>
+                  Reference:{" "}
+                  <span className="text-primary font-mono">{submittedTicket.ticketId}</span>
                 </h3>
                 <p className="text-xs text-muted-foreground">
                   Logged on {new Date(submittedTicket.createdAt).toLocaleString()} · Priority:{" "}
-                  <strong>{submittedTicket.priority}</strong> · Status: <strong>{submittedTicket.status}</strong>
+                  <strong>{submittedTicket.priority}</strong> · Status:{" "}
+                  <strong>{submittedTicket.status}</strong>
                 </p>
                 <p className="pt-2 text-sm text-foreground">
                   Our facility team at Bandra Kurla Complex has received your inquiry regarding{" "}
-                  <strong>"{submittedTicket.subject}"</strong>. A confirmation copy has been registered under your profile.
+                  <strong>"{submittedTicket.subject}"</strong>. A confirmation copy has been
+                  registered under your profile.
                 </p>
               </div>
               <Button
@@ -277,7 +314,10 @@ export function ContactSupportPage() {
               {/* Name & Email Row */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="sup-name" className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  <label
+                    htmlFor="sup-name"
+                    className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground"
+                  >
                     Your Name <span className="text-primary">*</span>
                   </label>
                   <input
@@ -292,7 +332,10 @@ export function ContactSupportPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="sup-email" className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  <label
+                    htmlFor="sup-email"
+                    className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground"
+                  >
                     Email Address <span className="text-primary">*</span>
                   </label>
                   <input
@@ -310,7 +353,10 @@ export function ContactSupportPage() {
               {/* Booking ID & Subject */}
               <div className="grid gap-4 sm:grid-cols-[180px_1fr]">
                 <div>
-                  <label htmlFor="sup-booking" className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  <label
+                    htmlFor="sup-booking"
+                    className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground"
+                  >
                     Booking ID <span className="text-muted-foreground/60">(Optional)</span>
                   </label>
                   <input
@@ -324,7 +370,10 @@ export function ContactSupportPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="sup-subj" className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  <label
+                    htmlFor="sup-subj"
+                    className="mb-1.5 block text-xs font-mono uppercase tracking-wider text-muted-foreground"
+                  >
                     Subject <span className="text-primary">*</span>
                   </label>
                   <input
@@ -342,7 +391,10 @@ export function ContactSupportPage() {
               {/* Message */}
               <div>
                 <div className="mb-1.5 flex items-center justify-between">
-                  <label htmlFor="sup-msg" className="block text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  <label
+                    htmlFor="sup-msg"
+                    className="block text-xs font-mono uppercase tracking-wider text-muted-foreground"
+                  >
                     Detailed Message <span className="text-primary">*</span>
                   </label>
                   <span className="font-mono text-[10px] text-muted-foreground">
@@ -389,7 +441,8 @@ export function ContactSupportPage() {
               </span>
               <h3 className="mt-2 font-display text-xl font-semibold">BKC Operations Desk</h3>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                For urgent barrier lifting or physical obstructions, speak directly with our control room.
+                For urgent barrier lifting or physical obstructions, speak directly with our control
+                room.
               </p>
 
               <div className="mt-6 space-y-4 text-xs">
@@ -397,7 +450,9 @@ export function ContactSupportPage() {
                   <Phone className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
                     <strong className="block text-sm text-foreground">+91 20 4827 2400</strong>
-                    <span className="text-[10px] text-muted-foreground">Direct barrier &amp; emergency hotline (24/7)</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      Direct barrier &amp; emergency hotline (24/7)
+                    </span>
                   </div>
                 </div>
 
@@ -405,15 +460,21 @@ export function ContactSupportPage() {
                   <Mail className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
                     <strong className="block text-sm text-foreground">help@parkgrid.one</strong>
-                    <span className="text-[10px] text-muted-foreground">General support &amp; payment inquiries</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      General support &amp; payment inquiries
+                    </span>
                   </div>
                 </div>
 
                 <div className="interactive-lift flex items-start gap-3 border border-border bg-background p-3.5">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
-                    <strong className="block text-sm text-foreground">Ground Level (G1) Control Hub</strong>
-                    <span className="text-[10px] text-muted-foreground">Bandra Kurla Complex, Mumbai, Maharashtra</span>
+                    <strong className="block text-sm text-foreground">
+                      Ground Level (G1) Control Hub
+                    </strong>
+                    <span className="text-[10px] text-muted-foreground">
+                      Bandra Kurla Complex, Mumbai, Maharashtra
+                    </span>
                   </div>
                 </div>
               </div>
@@ -447,8 +508,8 @@ export function ContactSupportPage() {
                 <strong className="font-display text-lg">Instant AI Answers</strong>
               </div>
               <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                Looking for parking rates, cancellation timelines, or EV charger specs?
-                Our AI Assistant can answer immediately without waiting for a support agent.
+                Looking for parking rates, cancellation timelines, or EV charger specs? Our AI
+                Assistant can answer immediately without waiting for a support agent.
               </p>
               <Link to="/assistant" className="mt-4 block">
                 <Button variant="outline" size="sm" className="w-full">
@@ -502,7 +563,9 @@ export function ContactSupportPage() {
                       </div>
                     </td>
                     <td className="p-3.5 max-w-xs">
-                      <strong className="block text-xs text-foreground truncate">{t.subject}</strong>
+                      <strong className="block text-xs text-foreground truncate">
+                        {t.subject}
+                      </strong>
                       <p className="text-[11px] text-muted-foreground truncate">{t.message}</p>
                     </td>
                     <td className="p-3.5 font-mono text-xs text-muted-foreground">

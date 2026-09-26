@@ -27,7 +27,13 @@ export interface SupportTicket {
   resolutionNotes?: string | undefined;
 }
 
-export const SUPPORT_CATEGORIES: { id: SupportCategory; label: string; icon: string; defaultPriority: TicketPriority; placeholder: string }[] = [
+export const SUPPORT_CATEGORIES: {
+  id: SupportCategory;
+  label: string;
+  icon: string;
+  defaultPriority: TicketPriority;
+  placeholder: string;
+}[] = [
   {
     id: "Booking / Parking",
     label: "Booking / Parking",
@@ -90,7 +96,8 @@ const INITIAL_TICKETS: SupportTicket[] = [
     bookingId: "SP-10231",
     category: "Payment",
     subject: "GST invoice copy for Corporate Expense",
-    message: "Kindly email the official B2B GST tax invoice for booking SP-10231 with company tax registration details.",
+    message:
+      "Kindly email the official B2B GST tax invoice for booking SP-10231 with company tax registration details.",
     status: "Resolved",
     priority: "Normal",
     createdAt: "2026-09-24T10:15:00.000Z",

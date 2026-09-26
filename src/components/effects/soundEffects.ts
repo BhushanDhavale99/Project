@@ -8,7 +8,9 @@ class SoundFX {
     if (this.isMuted) return null;
     try {
       if (!this.ctx && typeof window !== "undefined") {
-        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const AudioCtx =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
         if (AudioCtx) {
           this.ctx = new AudioCtx();
         }
@@ -38,7 +40,7 @@ class SoundFX {
       const now = ctx.currentTime;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      
+
       osc.type = "sine";
       osc.frequency.setValueAtTime(800, now);
       osc.frequency.exponentialRampToValueAtTime(1600, now + 0.12);
@@ -51,7 +53,9 @@ class SoundFX {
 
       osc.start(now);
       osc.stop(now + 0.13);
-    } catch {}
+    } catch {
+      // Audio playback might be restricted by browser autoplay policy
+    }
   }
 
   /** Gate barrier unlock confirmation click */
@@ -75,7 +79,9 @@ class SoundFX {
 
       osc.start(now);
       osc.stop(now + 0.19);
-    } catch {}
+    } catch {
+      // Audio playback might be restricted by browser autoplay policy
+    }
   }
 
   /** Radar ultrasonic pulse beep */
@@ -98,7 +104,9 @@ class SoundFX {
 
       osc.start(now);
       osc.stop(now + 0.1);
-    } catch {}
+    } catch {
+      // Audio playback might be restricted by browser autoplay policy
+    }
   }
 
   /** Elegant harmonic dock complete chord: C5 - E5 - G5 - C6 */
@@ -126,7 +134,9 @@ class SoundFX {
         osc.start(start);
         osc.stop(start + 0.36);
       });
-    } catch {}
+    } catch {
+      // Audio playback might be restricted by browser autoplay policy
+    }
   }
 }
 

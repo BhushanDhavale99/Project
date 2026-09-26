@@ -17,7 +17,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        heroOutline: "border border-hero-line bg-hero-surface text-hero-foreground backdrop-blur hover:bg-hero-surface/80",
+        heroOutline:
+          "border border-hero-line bg-hero-surface text-hero-foreground backdrop-blur hover:bg-hero-surface/80",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -42,11 +43,34 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, loading = false, success = false, children, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      loading = false,
+      success = false,
+      children,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} aria-busy={loading || undefined} disabled={disabled || loading} {...props}>
-        {loading && !asChild ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : success && !asChild ? <Check aria-hidden="true" /> : null}
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        aria-busy={loading || undefined}
+        disabled={disabled || loading}
+        {...props}
+      >
+        {loading && !asChild ? (
+          <LoaderCircle className="animate-spin" aria-hidden="true" />
+        ) : success && !asChild ? (
+          <Check aria-hidden="true" />
+        ) : null}
         {children}
       </Comp>
     );

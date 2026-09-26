@@ -1,2 +1,22 @@
 import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
-export const Route = createFileRoute("/assistant")({ head:()=>({meta:[{title:"AI Parking Assistant — ParkGrid One"},{name:"description",content:"Ask about availability, rules, pricing, EV charging, and directions at ParkGrid One."},{property:"og:title",content:"AI Parking Assistant — ParkGrid One"},{property:"og:description",content:"Ask about availability, rules, pricing, EV charging, and directions at ParkGrid One."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:lazyRouteComponent(() => import("@/components/app-pages"), "AssistantPage") });
+export const Route = createFileRoute("/assistant")({
+  head: () => ({
+    meta: [
+      { title: "AI Parking Assistant — ParkGrid One" },
+      {
+        name: "description",
+        content:
+          "Ask about availability, rules, pricing, EV charging, and directions at ParkGrid One.",
+      },
+      { property: "og:title", content: "AI Parking Assistant — ParkGrid One" },
+      {
+        property: "og:description",
+        content:
+          "Ask about availability, rules, pricing, EV charging, and directions at ParkGrid One.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: lazyRouteComponent(() => import("@/components/app-pages"), "AssistantPage"),
+});

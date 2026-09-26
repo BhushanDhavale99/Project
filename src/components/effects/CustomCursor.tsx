@@ -29,12 +29,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 type CursorTheme = { dot: string; ring: string; glow: string };
 
 const THEME_COLOURS: Record<string, CursorTheme> = {
-  dark:    { dot: "#22d3ee", ring: "#0891b2", glow: "rgba(34,211,238,0.45)"  },
-  light:   { dot: "#0f4c81", ring: "#0d9488", glow: "rgba(15,76,129,0.35)"   },
-  ocean:   { dot: "#38bdf8", ring: "#0ea5e9", glow: "rgba(56,189,248,0.45)"  },
-  cyber:   { dot: "#00fff7", ring: "#a855f7", glow: "rgba(0,255,247,0.50)"   },
-  sunset:  { dot: "#fb923c", ring: "#ec4899", glow: "rgba(251,146,60,0.45)"  },
-  premium: { dot: "#fbbf24", ring: "#f9fafb", glow: "rgba(251,191,36,0.45)"  },
+  dark: { dot: "#22d3ee", ring: "#0891b2", glow: "rgba(34,211,238,0.45)" },
+  light: { dot: "#0f4c81", ring: "#0d9488", glow: "rgba(15,76,129,0.35)" },
+  ocean: { dot: "#38bdf8", ring: "#0ea5e9", glow: "rgba(56,189,248,0.45)" },
+  cyber: { dot: "#00fff7", ring: "#a855f7", glow: "rgba(0,255,247,0.50)" },
+  sunset: { dot: "#fb923c", ring: "#ec4899", glow: "rgba(251,146,60,0.45)" },
+  premium: { dot: "#fbbf24", ring: "#f9fafb", glow: "rgba(251,191,36,0.45)" },
 };
 
 function getThemeColours(): CursorTheme {
@@ -50,8 +50,7 @@ function classifyTarget(el: Element | null): CursorState {
   let node: Element | null = el;
   while (node && node !== document.documentElement) {
     // Parking slots
-    if (node.classList.contains("pg3d-slot") || node.closest?.(".pg3d-slot"))
-      return "slot";
+    if (node.classList.contains("pg3d-slot") || node.closest?.(".pg3d-slot")) return "slot";
 
     // Book now CTA
     if (
@@ -59,7 +58,8 @@ function classifyTarget(el: Element | null): CursorState {
       node.getAttribute("data-cursor") === "book-now" ||
       (node.tagName === "A" && node.textContent?.toLowerCase().includes("book now")) ||
       (node.tagName === "BUTTON" && node.textContent?.toLowerCase().includes("book now"))
-    ) return "book-now";
+    )
+      return "book-now";
 
     // Generic buttons & links
     const tag = node.tagName;
@@ -77,12 +77,12 @@ function getMagneticOffset(
   el: Element,
   mx: number,
   my: number,
-  strength: number
+  strength: number,
 ): { dx: number; dy: number } {
   const r = el.getBoundingClientRect();
   return {
-    dx: (mx - (r.left + r.width  / 2)) * strength,
-    dy: (my - (r.top  + r.height / 2)) * strength,
+    dx: (mx - (r.left + r.width / 2)) * strength,
+    dy: (my - (r.top + r.height / 2)) * strength,
   };
 }
 
@@ -106,16 +106,16 @@ export function CustomCursor() {
 
 // ─── implementation ───────────────────────────────────────────────────────────
 function CursorImpl() {
-  const rawPos    = useRef({ x: -300, y: -300 });
+  const rawPos = useRef({ x: -300, y: -300 });
   const smoothPos = useRef({ x: -300, y: -300 });
-  const magOff    = useRef({ dx: 0, dy: 0 });
-  const magEl     = useRef<Element | null>(null);
-  const rafId     = useRef(0);
+  const magOff = useRef({ dx: 0, dy: 0 });
+  const magEl = useRef<Element | null>(null);
+  const rafId = useRef(0);
 
-  const dotRef  = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
 
-  const [state,   setState]   = useState<CursorState>("default");
+  const [state, setState] = useState<CursorState>("default");
   const [colours, setColours] = useState<CursorTheme>(getThemeColours);
 
   // Refresh colours when theme changes
@@ -129,7 +129,8 @@ function CursorImpl() {
   const onMove = useCallback((e: MouseEvent) => {
     rawPos.current = { x: e.clientX, y: e.clientY };
     setState(classifyTarget(e.target as Element | null));
-    magEl.current = (e.target as Element | null)?.closest("button, a, [role='button'], [role='link']") ?? null;
+    magEl.current =
+      (e.target as Element | null)?.closest("button, a, [role='button'], [role='link']") ?? null;
   }, []);
 
   const onLeave = useCallback(() => {
@@ -138,7 +139,7 @@ function CursorImpl() {
   }, []);
 
   useEffect(() => {
-    document.addEventListener("mousemove", onMove,  { passive: true });
+    document.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseleave", onLeave, { passive: true });
     return () => {
       document.removeEventListener("mousemove", onMove);
@@ -156,7 +157,8 @@ function CursorImpl() {
       const ly = sy + (ry - sy) * 0.14;
       smoothPos.current = { x: lx, y: ly };
 
-      let mdx = 0, mdy = 0;
+      let mdx = 0,
+        mdy = 0;
       if (magEl.current && (state === "button" || state === "book-now")) {
         const str = state === "book-now" ? 0.22 : 0.12;
         const off = getMagneticOffset(magEl.current, rx, ry, str);
@@ -183,16 +185,18 @@ function CursorImpl() {
   // Hide native cursor
   useEffect(() => {
     document.documentElement.style.cursor = "none";
-    return () => { document.documentElement.style.cursor = ""; };
+    return () => {
+      document.documentElement.style.cursor = "";
+    };
   }, []);
 
   // Derived sizing
-  const ringSize    = state === "book-now" ? 52 : state === "button" ? 44 : state === "slot" ? 48 : 32;
-  const dotSize     = state === "slot" ? 6 : 8;
-  const glowBlur    = state === "book-now" ? 18 : state === "slot" ? 12 : 8;
+  const ringSize = state === "book-now" ? 52 : state === "button" ? 44 : state === "slot" ? 48 : 32;
+  const dotSize = state === "slot" ? 6 : 8;
+  const glowBlur = state === "book-now" ? 18 : state === "slot" ? 12 : 8;
   const ringOpacity = 0.85;
-  const isSlot      = state === "slot";
-  const isLink      = state === "link";
+  const isSlot = state === "slot";
+  const isLink = state === "link";
 
   return (
     <>
@@ -201,12 +205,18 @@ function CursorImpl() {
         ref={dotRef}
         aria-hidden="true"
         style={{
-          position: "fixed", top: 0, left: 0,
-          zIndex: 99999, pointerEvents: "none",
-          width: dotSize, height: dotSize, borderRadius: "50%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 99999,
+          pointerEvents: "none",
+          width: dotSize,
+          height: dotSize,
+          borderRadius: "50%",
           background: colours.dot,
           boxShadow: `0 0 ${glowBlur}px ${colours.glow}, 0 0 ${glowBlur * 2}px ${colours.glow}`,
-          transition: "width 200ms ease, height 200ms ease, background 300ms ease, box-shadow 300ms ease",
+          transition:
+            "width 200ms ease, height 200ms ease, background 300ms ease, box-shadow 300ms ease",
           willChange: "transform",
         }}
       />
@@ -216,9 +226,14 @@ function CursorImpl() {
         ref={ringRef}
         aria-hidden="true"
         style={{
-          position: "fixed", top: 0, left: 0,
-          zIndex: 99998, pointerEvents: "none",
-          width: ringSize, height: ringSize, borderRadius: "50%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 99998,
+          pointerEvents: "none",
+          width: ringSize,
+          height: ringSize,
+          borderRadius: "50%",
           border: `1.5px solid ${colours.ring}`,
           boxShadow: `0 0 ${glowBlur / 2}px ${colours.glow}`,
           opacity: ringOpacity,
@@ -237,7 +252,9 @@ function CursorImpl() {
           <div
             aria-hidden="true"
             style={{
-              position: "absolute", inset: 0, borderRadius: "50%",
+              position: "absolute",
+              inset: 0,
+              borderRadius: "50%",
               background: `conic-gradient(from 0deg, transparent 70%, ${colours.dot}99 100%)`,
               animation: "pg-radar-spin 1.1s linear infinite",
             }}
@@ -250,10 +267,17 @@ function CursorImpl() {
             aria-hidden="true"
             viewBox="0 0 16 16"
             style={{
-              position: "absolute", inset: 0, margin: "auto",
-              width: 10, height: 10, opacity: 0.85,
-              fill: "none", stroke: colours.dot,
-              strokeWidth: 2.2, strokeLinecap: "round", strokeLinejoin: "round",
+              position: "absolute",
+              inset: 0,
+              margin: "auto",
+              width: 10,
+              height: 10,
+              opacity: 0.85,
+              fill: "none",
+              stroke: colours.dot,
+              strokeWidth: 2.2,
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
             }}
           >
             <polyline points="5 3 11 8 5 13" />

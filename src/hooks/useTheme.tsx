@@ -8,8 +8,8 @@ export interface ThemeConfig {
   name: string;
   subtitle: string;
   icon: typeof Moon;
-  color: string;      // Primary swatch
-  bgColor: string;    // Background swatch
+  color: string; // Primary swatch
+  bgColor: string; // Background swatch
   isDark: boolean;
 }
 
@@ -80,7 +80,9 @@ export function getInitialTheme(): ThemeId {
     if (saved && THEMES.some((t) => t.id === saved)) {
       return saved;
     }
-  } catch {}
+  } catch {
+    // Ignore localStorage access errors (e.g. storage disabled or private browsing)
+  }
   return DEFAULT_THEME;
 }
 
@@ -122,7 +124,9 @@ export function useTheme() {
     try {
       localStorage.setItem(STORAGE_KEY, newTheme);
       window.dispatchEvent(new CustomEvent("parkgrid-theme-change", { detail: newTheme }));
-    } catch {}
+    } catch {
+      // Ignore localStorage write errors (e.g. quota exceeded or storage disabled)
+    }
   };
 
   const currentConfig = THEMES.find((t) => t.id === theme) || THEMES[0];

@@ -1,2 +1,20 @@
 import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
-export const Route = createFileRoute("/location")({ head:()=>({meta:[{title:"Location & Directions — ParkGrid One"},{name:"description",content:"Find the entrance, exit, hours, and address for ParkGrid One at BKC, Mumbai."},{property:"og:title",content:"Location & Directions — ParkGrid One"},{property:"og:description",content:"Find the entrance, exit, hours, and address for ParkGrid One at BKC, Mumbai."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:lazyRouteComponent(() => import("@/components/app-pages"), "LocationPage") });
+export const Route = createFileRoute("/location")({
+  head: () => ({
+    meta: [
+      { title: "Location & Directions — ParkGrid One" },
+      {
+        name: "description",
+        content: "Find the entrance, exit, hours, and address for ParkGrid One at BKC, Mumbai.",
+      },
+      { property: "og:title", content: "Location & Directions — ParkGrid One" },
+      {
+        property: "og:description",
+        content: "Find the entrance, exit, hours, and address for ParkGrid One at BKC, Mumbai.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: lazyRouteComponent(() => import("@/components/app-pages"), "LocationPage"),
+});

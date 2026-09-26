@@ -19,5 +19,8 @@ export const Route = createFileRoute("/support")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: lazyRouteComponent(() => import("@/components/ContactSupportPage"), "ContactSupportPage"),
+  component: lazyRouteComponent(
+    () => import("@/components/ContactSupportPage"),
+    "ContactSupportPage",
+  ),
 });

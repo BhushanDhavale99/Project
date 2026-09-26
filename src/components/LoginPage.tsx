@@ -42,7 +42,9 @@ export function LoginPage({ onLoginSuccess, standalone = false }: LoginPageProps
 
   // Status & validation states
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingMethod, setLoadingMethod] = useState<"email" | "google" | "github" | "demo" | null>(null);
+  const [loadingMethod, setLoadingMethod] = useState<"email" | "google" | "github" | "demo" | null>(
+    null,
+  );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isExiting, setIsExiting] = useState(false);
@@ -288,7 +290,8 @@ export function LoginPage({ onLoginSuccess, standalone = false }: LoginPageProps
 
               <div>
                 <label className="block text-[11px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                  Preferred Vehicle Plate <span className="text-muted-foreground/60">(Optional)</span>
+                  Preferred Vehicle Plate{" "}
+                  <span className="text-muted-foreground/60">(Optional)</span>
                 </label>
                 <div className="login-input-wrap">
                   <input
@@ -417,11 +420,7 @@ export function LoginPage({ onLoginSuccess, standalone = false }: LoginPageProps
           </div>
 
           {/* Primary Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="login-submit-btn mt-4"
-          >
+          <button type="submit" disabled={isLoading} className="login-submit-btn mt-4">
             {isLoading && loadingMethod === "email" ? (
               <>
                 <RefreshCw className="size-4 animate-spin text-slate-900" />
@@ -453,9 +452,7 @@ export function LoginPage({ onLoginSuccess, standalone = false }: LoginPageProps
             <span>⚡ Quick Demo Access</span>
           </button>
 
-          <span className="text-[10px] font-mono text-muted-foreground/70">
-            256-Bit Encrypted
-          </span>
+          <span className="text-[10px] font-mono text-muted-foreground/70">256-Bit Encrypted</span>
         </div>
 
         {/* ── Mode Switcher Footer ── */}
@@ -509,13 +506,14 @@ export function LoginPage({ onLoginSuccess, standalone = false }: LoginPageProps
 
             {forgotSent ? (
               <div className="p-4 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs">
-                Password recovery instructions have been sent to{" "}
-                <strong>{forgotEmail}</strong>. Please check your inbox.
+                Password recovery instructions have been sent to <strong>{forgotEmail}</strong>.
+                Please check your inbox.
               </div>
             ) : (
               <form onSubmit={handleForgotPasswordSubmit} className="space-y-4">
                 <p className="text-xs text-muted-foreground">
-                  Enter your registered ParkGrid email address and we'll send you an encrypted reset link.
+                  Enter your registered ParkGrid email address and we'll send you an encrypted reset
+                  link.
                 </p>
                 <div>
                   <input

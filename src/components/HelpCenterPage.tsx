@@ -39,12 +39,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import {
-  FAQ_CATEGORIES,
-  FAQ_DATABASE,
-  type FAQCategory,
-  type FAQItem,
-} from "@/lib/faq-rag-data";
+import { FAQ_CATEGORIES, FAQ_DATABASE, type FAQCategory, type FAQItem } from "@/lib/faq-rag-data";
 
 export function HelpCenterPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -154,7 +149,9 @@ export function HelpCenterPage() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
+                <Link to="/" className="text-muted-foreground hover:text-foreground">
+                  Home
+                </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -163,7 +160,10 @@ export function HelpCenterPage() {
                 <button
                   type="button"
                   onClick={() => handleCategoryChange("All")}
-                  className={cn("text-muted-foreground hover:text-foreground", selectedCategory === "All" && "text-foreground font-medium")}
+                  className={cn(
+                    "text-muted-foreground hover:text-foreground",
+                    selectedCategory === "All" && "text-foreground font-medium",
+                  )}
                 >
                   Help Center
                 </button>
@@ -381,8 +381,8 @@ export function HelpCenterPage() {
                   <HelpCircle className="mx-auto size-10 text-muted-foreground" />
                   <h3 className="mt-4 font-display text-xl font-semibold">No questions found</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    We couldn’t find an exact FAQ matching "{searchQuery}". You can clear your search,
-                    browse another category, or ask our 24/7 AI Concierge.
+                    We couldn’t find an exact FAQ matching "{searchQuery}". You can clear your
+                    search, browse another category, or ask our 24/7 AI Concierge.
                   </p>
                   <div className="mt-6 flex flex-wrap justify-center gap-3">
                     <Button variant="outline" size="sm" onClick={() => setSearchQuery("")}>
@@ -520,7 +520,9 @@ export function HelpCenterPage() {
                             </div>
                             <div className="flex justify-between">
                               <span className="text-muted-foreground/80">Source:</span>
-                              <span className="truncate max-w-[240px] text-foreground">{item.source}</span>
+                              <span className="truncate max-w-[240px] text-foreground">
+                                {item.source}
+                              </span>
                             </div>
                             <div className="flex justify-between">
                               <span className="text-muted-foreground/80">Version:</span>
@@ -557,7 +559,8 @@ export function HelpCenterPage() {
               </span>
               <h3 className="mt-2 font-display text-xl font-semibold">24/7 Facility Help</h3>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                Our on-site control team and marshals are stationed right at Ground Level (G1) in BKC.
+                Our on-site control team and marshals are stationed right at Ground Level (G1) in
+                BKC.
               </p>
 
               <div className="mt-5 space-y-3">
@@ -568,7 +571,9 @@ export function HelpCenterPage() {
                   <Phone className="size-4 text-primary" />
                   <div>
                     <strong className="block text-foreground">+91 20 4827 2400</strong>
-                    <span className="text-[10px] text-muted-foreground">Emergency &amp; Barrier Control</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      Emergency &amp; Barrier Control
+                    </span>
                   </div>
                 </a>
 
@@ -579,7 +584,9 @@ export function HelpCenterPage() {
                   <Mail className="size-4 text-primary" />
                   <div>
                     <strong className="block text-foreground">help@parkgrid.one</strong>
-                    <span className="text-[10px] text-muted-foreground">Ticketing &amp; Invoices</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      Ticketing &amp; Invoices
+                    </span>
                   </div>
                 </a>
               </div>
@@ -606,23 +613,33 @@ export function HelpCenterPage() {
               <ul className="mt-3 space-y-2.5 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                  <span>Speed limit inside facility: <strong>8 km/h</strong></span>
+                  <span>
+                    Speed limit inside facility: <strong>8 km/h</strong>
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                  <span>Heavy vehicles on <strong>G1 &amp; B1/B2 only</strong></span>
+                  <span>
+                    Heavy vehicles on <strong>G1 &amp; B1/B2 only</strong>
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                  <span>Standard parking: <strong>₹50/hour + GST</strong></span>
+                  <span>
+                    Standard parking: <strong>₹50/hour + GST</strong>
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                  <span>EV Charging: <strong>₹12/kWh</strong> (60 kW CCS2)</span>
+                  <span>
+                    EV Charging: <strong>₹12/kWh</strong> (60 kW CCS2)
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                  <span>Exit grace period: <strong>15 minutes</strong></span>
+                  <span>
+                    Exit grace period: <strong>15 minutes</strong>
+                  </span>
                 </li>
               </ul>
             </div>

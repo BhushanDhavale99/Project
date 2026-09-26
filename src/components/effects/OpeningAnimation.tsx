@@ -192,7 +192,12 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
   };
 
   return (
-    <div className={`opening-animation-overlay ${isExiting ? "opening-exit" : ""}`} role="dialog" aria-modal="true" aria-label="ParkGrid Opening Sequence">
+    <div
+      className={`opening-animation-overlay ${isExiting ? "opening-exit" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="ParkGrid Opening Sequence"
+    >
       {/* Background Cyber Floor */}
       <div className="cyber-grid-floor" />
 
@@ -230,14 +235,14 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
             title={isMuted ? "Unmute Audio" : "Mute Audio"}
             aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
           >
-            {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4 text-cyan-400" />}
+            {isMuted ? (
+              <VolumeX className="size-4" />
+            ) : (
+              <Volume2 className="size-4 text-cyan-400" />
+            )}
           </button>
 
-          <button
-            onClick={dismiss}
-            className="skip-btn"
-            title="Skip Intro (Press Esc)"
-          >
+          <button onClick={dismiss} className="skip-btn" title="Skip Intro (Press Esc)">
             <span>Skip</span>
             <FastForward className="size-3.5" />
           </button>
@@ -342,14 +347,39 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
               strokeWidth="1.5"
               strokeDasharray="6 4"
             />
-            <text x="45" y="45" fill="rgba(239, 68, 68, 0.6)" fontSize="13" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+            <text
+              x="45"
+              y="45"
+              fill="rgba(239, 68, 68, 0.6)"
+              fontSize="13"
+              fontFamily="monospace"
+              textAnchor="middle"
+              fontWeight="bold"
+            >
               A-10
             </text>
-            <text x="45" y="65" fill="rgba(239, 68, 68, 0.5)" fontSize="9" fontFamily="monospace" textAnchor="middle">
+            <text
+              x="45"
+              y="65"
+              fill="rgba(239, 68, 68, 0.5)"
+              fontSize="9"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
               OCCUPIED
             </text>
             {/* Parked Vehicle Silhouette in A-10 */}
-            <rect x="20" y="30" width="50" height="95" rx="10" fill="#1e293b" stroke="#334155" strokeWidth="1" opacity="0.8" />
+            <rect
+              x="20"
+              y="30"
+              width="50"
+              height="95"
+              rx="10"
+              fill="#1e293b"
+              stroke="#334155"
+              strokeWidth="1"
+              opacity="0.8"
+            />
           </g>
 
           {/* Target Parking Bay A-12 (The Hero Bay) */}
@@ -425,15 +455,50 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
             {/* Ultrasonic Sensor Radar Rings on Curb */}
             {isBayLocked && (
               <g transform="translate(50, 10)">
-                <circle cx="0" cy="0" r="14" fill="none" stroke="#10b981" strokeWidth="1.5" className="sonar-wave" />
-                <circle cx="0" cy="0" r="28" fill="none" stroke="#10b981" strokeWidth="1.5" className="sonar-wave" style={{ animationDelay: "0.4s" }} />
-                <circle cx="0" cy="0" r="42" fill="none" stroke="#10b981" strokeWidth="1.5" className="sonar-wave" style={{ animationDelay: "0.8s" }} />
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="14"
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="1.5"
+                  className="sonar-wave"
+                />
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="28"
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="1.5"
+                  className="sonar-wave"
+                  style={{ animationDelay: "0.4s" }}
+                />
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="42"
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="1.5"
+                  className="sonar-wave"
+                  style={{ animationDelay: "0.8s" }}
+                />
               </g>
             )}
 
             {/* EV Fast Charger Station Post */}
             <g transform="translate(85, -20)">
-              <rect x="0" y="0" width="16" height="24" rx="4" fill="#0f172a" stroke="#00f0ff" strokeWidth="1.5" />
+              <rect
+                x="0"
+                y="0"
+                width="16"
+                height="24"
+                rx="4"
+                fill="#0f172a"
+                stroke="#00f0ff"
+                strokeWidth="1.5"
+              />
               <path d="M 8 5 L 5 13 L 9 13 L 8 19 L 13 11 L 9 11 Z" fill="#10b981" />
             </g>
           </g>
@@ -449,10 +514,25 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
               strokeWidth="1.5"
               strokeDasharray="6 4"
             />
-            <text x="45" y="45" fill="rgba(16, 185, 129, 0.6)" fontSize="13" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+            <text
+              x="45"
+              y="45"
+              fill="rgba(16, 185, 129, 0.6)"
+              fontSize="13"
+              fontFamily="monospace"
+              textAnchor="middle"
+              fontWeight="bold"
+            >
               A-14
             </text>
-            <text x="45" y="65" fill="rgba(16, 185, 129, 0.5)" fontSize="9" fontFamily="monospace" textAnchor="middle">
+            <text
+              x="45"
+              y="65"
+              fill="rgba(16, 185, 129, 0.5)"
+              fontSize="9"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
               AVAILABLE
             </text>
           </g>
@@ -460,9 +540,25 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
           {/* Toll Gate Infrastructure at (190, 320) */}
           <g transform="translate(190, 310)">
             {/* ANPR Scanner Pillar */}
-            <rect x="-14" y="-30" width="28" height="60" rx="4" fill="#090d16" stroke="#00f0ff" strokeWidth="1.5" />
+            <rect
+              x="-14"
+              y="-30"
+              width="28"
+              height="60"
+              rx="4"
+              fill="#090d16"
+              stroke="#00f0ff"
+              strokeWidth="1.5"
+            />
             {/* Status Display Screen */}
-            <rect x="-10" y="-24" width="20" height="12" rx="2" fill={phase >= 1 ? "#064e3b" : "#450a0a"} />
+            <rect
+              x="-10"
+              y="-24"
+              width="20"
+              height="12"
+              rx="2"
+              fill={phase >= 1 ? "#064e3b" : "#450a0a"}
+            />
             <text
               x="0"
               y="-15"
@@ -495,7 +591,15 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
               <line x1="22" y1="-4" x2="14" y2="4" stroke="#ef4444" strokeWidth="4" />
               <line x1="42" y1="-4" x2="34" y2="4" stroke="#ef4444" strokeWidth="4" />
               {/* Neon edge glow on arm */}
-              <line x1="-14" y1="-4" x2="60" y2="-4" stroke={phase >= 1 ? "#10b981" : "#ef4444"} strokeWidth="2" filter="url(#neonGlow)" />
+              <line
+                x1="-14"
+                y1="-4"
+                x2="60"
+                y2="-4"
+                stroke={phase >= 1 ? "#10b981" : "#ef4444"}
+                strokeWidth="2"
+                filter="url(#neonGlow)"
+              />
             </g>
 
             {/* Laser ANPR Scanning Plane */}
@@ -531,13 +635,49 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
 
             {/* 4 Wheels */}
             {/* Front Left */}
-            <rect x="-26" y="-38" width="8" height="18" rx="3" fill="#020617" stroke="#00f0ff" strokeWidth="1" />
+            <rect
+              x="-26"
+              y="-38"
+              width="8"
+              height="18"
+              rx="3"
+              fill="#020617"
+              stroke="#00f0ff"
+              strokeWidth="1"
+            />
             {/* Front Right */}
-            <rect x="18" y="-38" width="8" height="18" rx="3" fill="#020617" stroke="#00f0ff" strokeWidth="1" />
+            <rect
+              x="18"
+              y="-38"
+              width="8"
+              height="18"
+              rx="3"
+              fill="#020617"
+              stroke="#00f0ff"
+              strokeWidth="1"
+            />
             {/* Rear Left */}
-            <rect x="-26" y="22" width="8" height="18" rx="3" fill="#020617" stroke="#00f0ff" strokeWidth="1" />
+            <rect
+              x="-26"
+              y="22"
+              width="8"
+              height="18"
+              rx="3"
+              fill="#020617"
+              stroke="#00f0ff"
+              strokeWidth="1"
+            />
             {/* Rear Right */}
-            <rect x="18" y="22" width="8" height="18" rx="3" fill="#020617" stroke="#00f0ff" strokeWidth="1" />
+            <rect
+              x="18"
+              y="22"
+              width="8"
+              height="18"
+              rx="3"
+              fill="#020617"
+              stroke="#00f0ff"
+              strokeWidth="1"
+            />
 
             {/* Main Chassis Body */}
             <path
@@ -572,7 +712,15 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
               strokeWidth="1"
             />
             {/* Roof Glass Highlight */}
-            <line x1="-8" y1="-18" x2="8" y2="8" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+            <line
+              x1="-8"
+              y1="-18"
+              x2="8"
+              y2="8"
+              stroke="rgba(255,255,255,0.4)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
 
             {/* Dual Front LED Headlight Projectors */}
             <ellipse cx="-13" cy="-44" rx="4" ry="2" fill="#ffffff" filter="url(#neonGlow)" />
@@ -589,8 +737,25 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
 
             {/* Car License Plate Annotation */}
             <g transform="translate(0, 68)">
-              <rect x="-35" y="-8" width="70" height="15" rx="3" fill="rgba(15, 23, 42, 0.9)" stroke="#00f0ff" strokeWidth="1" />
-              <text x="0" y="3" fill="#e2e8f0" fontSize="8" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+              <rect
+                x="-35"
+                y="-8"
+                width="70"
+                height="15"
+                rx="3"
+                fill="rgba(15, 23, 42, 0.9)"
+                stroke="#00f0ff"
+                strokeWidth="1"
+              />
+              <text
+                x="0"
+                y="3"
+                fill="#e2e8f0"
+                fontSize="8"
+                fontFamily="monospace"
+                fontWeight="bold"
+                textAnchor="middle"
+              >
                 MH 12 AB 1234
               </text>
             </g>
@@ -604,7 +769,7 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
               <ShieldCheck className="size-4 text-emerald-400" />
               <span>VEHICLE DOCKED & VERIFIED</span>
             </div>
-            
+
             <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-white mb-2 drop-shadow-[0_0_35px_rgba(0,240,255,0.6)]">
               PARKGRID <span className="text-cyan-400">ONE</span>
             </h1>
@@ -614,9 +779,13 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
             </p>
 
             <div className="mt-6 flex items-center gap-4 text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1.5"><Zap className="size-3.5 text-emerald-400" /> EV CHARGER ARMED</span>
+              <span className="flex items-center gap-1.5">
+                <Zap className="size-3.5 text-emerald-400" /> EV CHARGER ARMED
+              </span>
               <span>·</span>
-              <span className="flex items-center gap-1.5"><Sparkles className="size-3.5 text-cyan-400" /> CALM ARRIVAL READY</span>
+              <span className="flex items-center gap-1.5">
+                <Sparkles className="size-3.5 text-cyan-400" /> CALM ARRIVAL READY
+              </span>
             </div>
           </div>
         )}
@@ -632,9 +801,18 @@ export function OpeningAnimation({ forcePlay = false, onComplete }: OpeningAnima
           </div>
 
           <div className="hidden sm:flex items-center gap-3 font-mono text-[11px] text-slate-400">
-            <span>BAY: <strong className="text-cyan-300">A-12</strong></span>
-            <span>LEVEL: <strong className="text-cyan-300">1</strong></span>
-            <span>RADAR: <strong className={isBayLocked ? "text-emerald-400" : "text-amber-400"}>{isBayLocked ? "LOCKED" : "TRACKING"}</strong></span>
+            <span>
+              BAY: <strong className="text-cyan-300">A-12</strong>
+            </span>
+            <span>
+              LEVEL: <strong className="text-cyan-300">1</strong>
+            </span>
+            <span>
+              RADAR:{" "}
+              <strong className={isBayLocked ? "text-emerald-400" : "text-amber-400"}>
+                {isBayLocked ? "LOCKED" : "TRACKING"}
+              </strong>
+            </span>
           </div>
         </div>
 
@@ -654,4 +832,3 @@ export function replayParkingIntro() {
     window.dispatchEvent(new CustomEvent("replay-parking-intro"));
   }
 }
-

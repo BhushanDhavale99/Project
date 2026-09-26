@@ -35,7 +35,13 @@ const COLORS = {
   maintenance: "var(--muted-foreground)",
 };
 
-export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activeFloor, pulsing }: Props) {
+export default function ParkingGrid3D({
+  slots,
+  selectedSlot,
+  onSelectSlot,
+  activeFloor,
+  pulsing,
+}: Props) {
   const reduced = useReducedMotion();
   const { ref, visible } = useVisible<HTMLDivElement>();
   const host = useRef<HTMLDivElement>(null);
@@ -92,8 +98,8 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
     <div ref={ref} className="pg3d">
       <div className="pg3d-toolbar">
         <p className="text-xs text-muted-foreground">
-          Floor {FLOOR_CONFIG[activeFloor]?.label ?? activeFloor} · {slots.filter((slot) => slot.status === "available").length}{" "}
-          available in view
+          Floor {FLOOR_CONFIG[activeFloor]?.label ?? activeFloor} ·{" "}
+          {slots.filter((slot) => slot.status === "available").length} available in view
         </p>
         <div className="flex flex-wrap gap-1" role="group" aria-label="Parking map view controls">
           <Button
@@ -191,7 +197,7 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
               >
                 <motion.button
                   type="button"
-                  className={`pg3d-slot${pulsing === slot.id ? ' slot-click-pulse' : ''}`}
+                  className={`pg3d-slot${pulsing === slot.id ? " slot-click-pulse" : ""}`}
                   aria-label={`${slot.id}, ${slot.status}, ${slot.type}, ₹${slot.price} per hour`}
                   aria-disabled={slot.status !== "available"}
                   aria-pressed={selected}
@@ -238,4 +244,3 @@ export default function ParkingGrid3D({ slots, selectedSlot, onSelectSlot, activ
     </div>
   );
 }
-

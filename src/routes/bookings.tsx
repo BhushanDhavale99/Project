@@ -1,2 +1,20 @@
 import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
-export const Route = createFileRoute("/bookings")({ head:()=>({meta:[{title:"My Bookings — ParkGrid One"},{name:"description",content:"Review upcoming, active, completed, and cancelled ParkGrid One bookings."},{property:"og:title",content:"My Bookings — ParkGrid One"},{property:"og:description",content:"Review upcoming, active, completed, and cancelled ParkGrid One bookings."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:lazyRouteComponent(() => import("@/components/app-pages"), "BookingsPage") });
+export const Route = createFileRoute("/bookings")({
+  head: () => ({
+    meta: [
+      { title: "My Bookings — ParkGrid One" },
+      {
+        name: "description",
+        content: "Review upcoming, active, completed, and cancelled ParkGrid One bookings.",
+      },
+      { property: "og:title", content: "My Bookings — ParkGrid One" },
+      {
+        property: "og:description",
+        content: "Review upcoming, active, completed, and cancelled ParkGrid One bookings.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: lazyRouteComponent(() => import("@/components/app-pages"), "BookingsPage"),
+});

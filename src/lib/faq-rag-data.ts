@@ -39,7 +39,14 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "🅿️",
     iconName: "CarFront",
     shortDesc: "Slots, floors, heavy vehicle guidelines, and 24/7 hours",
-    subcategories: ["Available parking slots", "Slot colors/status", "Parking floors", "Heavy vehicle restrictions", "Operating hours", "Entrance and exit"],
+    subcategories: [
+      "Available parking slots",
+      "Slot colors/status",
+      "Parking floors",
+      "Heavy vehicle restrictions",
+      "Operating hours",
+      "Entrance and exit",
+    ],
   },
   {
     id: "Booking",
@@ -47,7 +54,13 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "🎫",
     iconName: "Ticket",
     shortDesc: "Reserve slots, modifications, extensions, and digital passes",
-    subcategories: ["How to book", "Slot selection", "Changing a booking", "Extending parking", "Viewing bookings"],
+    subcategories: [
+      "How to book",
+      "Slot selection",
+      "Changing a booking",
+      "Extending parking",
+      "Viewing bookings",
+    ],
   },
   {
     id: "Payments",
@@ -55,7 +68,12 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "💳",
     iconName: "CreditCard",
     shortDesc: "Rates, UPI/Card methods, automated calculations, and receipts",
-    subcategories: ["Payment methods", "Parking fee calculation", "Failed payments", "Payment status"],
+    subcategories: [
+      "Payment methods",
+      "Parking fee calculation",
+      "Failed payments",
+      "Payment status",
+    ],
   },
   {
     id: "Cancellation & Refunds",
@@ -63,7 +81,12 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "❌",
     iconName: "RotateCcw",
     shortDesc: "Cancellation timelines, bank refund SLAs, and no-show policies",
-    subcategories: ["Cancellation process", "Cancellation policy", "Refund process", "No-show policy"],
+    subcategories: [
+      "Cancellation process",
+      "Cancellation policy",
+      "Refund process",
+      "No-show policy",
+    ],
   },
   {
     id: "EV Charging",
@@ -71,7 +94,12 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "⚡",
     iconName: "Zap",
     shortDesc: "Fast DC & AC chargers, tariffs, and real-time charging status",
-    subcategories: ["EV charger availability", "Charger types", "Charging process", "Charging fees"],
+    subcategories: [
+      "EV charger availability",
+      "Charger types",
+      "Charging process",
+      "Charging fees",
+    ],
   },
   {
     id: "Entry & Exit",
@@ -87,7 +115,12 @@ export const FAQ_CATEGORIES: CategoryInfo[] = [
     emoji: "🤖",
     iconName: "Bot",
     shortDesc: "24/7 smart concierge for live bay telemetry, rules, and guidance",
-    subcategories: ["What Parking AI can do", "Live availability questions", "Parking-rule questions", "Booking-related questions"],
+    subcategories: [
+      "What Parking AI can do",
+      "Live availability questions",
+      "Parking-rule questions",
+      "Booking-related questions",
+    ],
   },
 ];
 
@@ -98,7 +131,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking",
     subcategory: "Available parking slots",
     question: "How many parking slots are available and how can I check in real-time?",
-    answer: "ParkGrid One at Bandra Kurla Complex (BKC) features 150 automated sensor-tracked parking bays. Live capacity typically shows 73 available, 62 occupied, and 15 reserved spaces. You can inspect live bay counts by floor and zone directly on the interactive Parking map or ask the AI Concierge.",
+    answer:
+      "ParkGrid One at Bandra Kurla Complex (BKC) features 150 automated sensor-tracked parking bays. Live capacity typically shows 73 available, 62 occupied, and 15 reserved spaces. You can inspect live bay counts by floor and zone directly on the interactive Parking map or ask the AI Concierge.",
     badge: "150 Total Bays",
     source: "ParkGrid Facility Telemetry & Operations Manual v2.4",
     document: "ParkGrid_BKC_Facility_Specs.pdf",
@@ -112,7 +146,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking",
     subcategory: "Slot colors/status",
     question: "What do the slot colors and statuses mean on the parking map?",
-    answer: "The parking map uses standard intuitive color codes: Green indicates 'Available' and ready to book; Red indicates 'Occupied' by an active vehicle; Amber/Yellow indicates 'Reserved' for an incoming arrival; Cyan/Blue indicates your currently 'Selected' slot during booking; and Grey/Orange indicates a bay undergoing scheduled maintenance or sensor calibration.",
+    answer:
+      "The parking map uses standard intuitive color codes: Green indicates 'Available' and ready to book; Red indicates 'Occupied' by an active vehicle; Amber/Yellow indicates 'Reserved' for an incoming arrival; Cyan/Blue indicates your currently 'Selected' slot during booking; and Grey/Orange indicates a bay undergoing scheduled maintenance or sensor calibration.",
     badge: "Color Indicators",
     source: "ParkGrid UI Standards & Driver Signage Guide",
     document: "ParkGrid_Signage_Manual.pdf",
@@ -126,7 +161,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking",
     subcategory: "Parking floors",
     question: "How are the parking floors arranged across the BKC facility?",
-    answer: "The facility comprises five distinct levels: B1 and B2 (Underground Basement parking), G1 (Ground Floor level), and L1 and L2 (Upper Elevated parking decks). Each level includes direct elevator lobbies, pedestrian walkways, LED directional signs, and accessible handicap parking adjacent to lifts.",
+    answer:
+      "The facility comprises five distinct levels: B1 and B2 (Underground Basement parking), G1 (Ground Floor level), and L1 and L2 (Upper Elevated parking decks). Each level includes direct elevator lobbies, pedestrian walkways, LED directional signs, and accessible handicap parking adjacent to lifts.",
     badge: "B1 · B2 · G1 · L1 · L2",
     source: "BKC Facility Structural & Architectural Blueprint",
     document: "ParkGrid_Architectural_Layout.pdf",
@@ -140,22 +176,34 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking",
     subcategory: "Heavy vehicle restrictions",
     question: "What are the restrictions and designated zones for heavy vehicles?",
-    answer: "For structural and vertical clearance safety, heavy vehicles (SUVs with roof-racks exceeding 2.1m, commercial vans, tempos, and multi-axle vehicles) are permitted only on Ground (G1) and Basement (B1 & B2) levels. Upper decks (L1 and L2) have a strict 2.0-meter height ceiling and weight thresholds dedicated to standard passenger cars and motorcycles.",
+    answer:
+      "For structural and vertical clearance safety, heavy vehicles (SUVs with roof-racks exceeding 2.1m, commercial vans, tempos, and multi-axle vehicles) are permitted only on Ground (G1) and Basement (B1 & B2) levels. Upper decks (L1 and L2) have a strict 2.0-meter height ceiling and weight thresholds dedicated to standard passenger cars and motorcycles.",
     badge: "Notice: G1 & B1/B2 Only",
-    importantNotice: "Heavy vehicles are allowed only on Ground (G1) and Basement (B1/B2) levels. Height limit on L1/L2 is 2.0 meters.",
+    importantNotice:
+      "Heavy vehicles are allowed only on Ground (G1) and Basement (B1/B2) levels. Height limit on L1/L2 is 2.0 meters.",
     source: "Municipal Corporation of Greater Mumbai (MCGM) & ParkGrid Safety Code",
     document: "Heavy_Vehicle_Compliance_BKC.pdf",
     version: "2.2.0",
     lastUpdated: "September 2026",
     relatedIds: ["prk-03", "ent-02"],
-    keywords: ["heavy vehicles", "suv", "height clearance", "restrictions", "trucks", "vans", "g1", "basement"],
+    keywords: [
+      "heavy vehicles",
+      "suv",
+      "height clearance",
+      "restrictions",
+      "trucks",
+      "vans",
+      "g1",
+      "basement",
+    ],
   },
   {
     id: "prk-05",
     category: "Parking",
     subcategory: "Operating hours",
     question: "What are the facility operating hours and on-site staff availability?",
-    answer: "ParkGrid One operates 24 hours a day, 7 days a week, 365 days a year without closure. Automated boom barriers, high-definition CCTV surveillance, license plate cameras, and emergency intercom stations operate continuously. Dedicated facility marshals and technical support staff are stationed on Ground (G1) round the clock.",
+    answer:
+      "ParkGrid One operates 24 hours a day, 7 days a week, 365 days a year without closure. Automated boom barriers, high-definition CCTV surveillance, license plate cameras, and emergency intercom stations operate continuously. Dedicated facility marshals and technical support staff are stationed on Ground (G1) round the clock.",
     badge: "Open 24/7",
     source: "ParkGrid Facility Operations Manual v2.4",
     document: "ParkGrid_BKC_Facility_Specs.pdf",
@@ -169,7 +217,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking",
     subcategory: "Entrance and exit",
     question: "Where are the vehicular entrance and exit points located in BKC?",
-    answer: "The vehicular entrance is located on the main BKC access arterial road (near G-Block, Bandra East) with dedicated RFID and QR entry lanes. Exits lead directly onto the perimeter boulevard to ensure smooth vehicular flow without queuing. The internal facility speed limit is strictly enforced at 8 km/h.",
+    answer:
+      "The vehicular entrance is located on the main BKC access arterial road (near G-Block, Bandra East) with dedicated RFID and QR entry lanes. Exits lead directly onto the perimeter boulevard to ensure smooth vehicular flow without queuing. The internal facility speed limit is strictly enforced at 8 km/h.",
     badge: "Speed Limit: 8 km/h",
     source: "BKC Traffic Integration & Traffic Police NOC",
     document: "ParkGrid_Traffic_Flow_Plan.pdf",
@@ -185,7 +234,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Booking",
     subcategory: "How to book",
     question: "How do I reserve a parking slot in advance?",
-    answer: "Reserving a slot takes under 60 seconds: Navigate to the 'Parking' page, choose your entry date and time duration, select your vehicle type (Car, Bike, or EV), browse the interactive floor map to pick your desired bay, enter your vehicle registration plate number, and proceed to checkout with instant digital confirmation.",
+    answer:
+      "Reserving a slot takes under 60 seconds: Navigate to the 'Parking' page, choose your entry date and time duration, select your vehicle type (Car, Bike, or EV), browse the interactive floor map to pick your desired bay, enter your vehicle registration plate number, and proceed to checkout with instant digital confirmation.",
     badge: "Instant Confirmation",
     source: "ParkGrid Digital Booking Manual",
     document: "ParkGrid_User_Guide_2026.pdf",
@@ -199,7 +249,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Booking",
     subcategory: "Slot selection",
     question: "Can I choose my specific bay, floor, or EV charging spot?",
-    answer: "Yes. Unlike conventional car parks that assign random bays, ParkGrid gives you full control. You can filter by Floor (B1, B2, G1, L1, L2) and Zone (Zone A, Zone B, EV Zone). Clicking any green bay reveals its slot ID, proximity to lifts, price per hour, and charging specifications.",
+    answer:
+      "Yes. Unlike conventional car parks that assign random bays, ParkGrid gives you full control. You can filter by Floor (B1, B2, G1, L1, L2) and Zone (Zone A, Zone B, EV Zone). Clicking any green bay reveals its slot ID, proximity to lifts, price per hour, and charging specifications.",
     badge: "Interactive Choice",
     source: "ParkGrid Digital Booking Manual",
     document: "ParkGrid_User_Guide_2026.pdf",
@@ -213,7 +264,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Booking",
     subcategory: "Changing a booking",
     question: "Can I change my booked vehicle number, arrival time, or assigned slot?",
-    answer: "You can modify your booking details (arrival time window, license plate number, or change to another available slot of the same tier) up to 30 minutes before your scheduled start time without any modification fee via 'My Bookings'. If switching to an EV bay, the tariff difference is adjusted at checkout.",
+    answer:
+      "You can modify your booking details (arrival time window, license plate number, or change to another available slot of the same tier) up to 30 minutes before your scheduled start time without any modification fee via 'My Bookings'. If switching to an EV bay, the tariff difference is adjusted at checkout.",
     badge: "Free Changes ≤ 30m",
     source: "ParkGrid Reservation & Customer Terms",
     document: "Booking_Terms_Conditions_2026.pdf",
@@ -227,7 +279,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Booking",
     subcategory: "Extending parking",
     question: "How do I extend my parking session if I am running late?",
-    answer: "You can extend an active parking session anytime before your scheduled departure. Simply open 'My Bookings', tap 'Extend Parking', select the additional hours needed, and approve the payment. If your current bay has an immediate subsequent reservation, the system will offer you an alternative convenient bay.",
+    answer:
+      "You can extend an active parking session anytime before your scheduled departure. Simply open 'My Bookings', tap 'Extend Parking', select the additional hours needed, and approve the payment. If your current bay has an immediate subsequent reservation, the system will offer you an alternative convenient bay.",
     badge: "In-App Extension",
     source: "ParkGrid Reservation & Customer Terms",
     document: "Booking_Terms_Conditions_2026.pdf",
@@ -241,7 +294,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Booking",
     subcategory: "Viewing bookings",
     question: "Where can I view my active passes, upcoming bookings, and history?",
-    answer: "All your reservations are organized chronologically on the 'My Bookings' page under four tabs: Upcoming (with your ready-to-scan QR pass), Active (with live countdown timer), Completed (with downloadable tax invoices), and Cancelled (with refund tracking).",
+    answer:
+      "All your reservations are organized chronologically on the 'My Bookings' page under four tabs: Upcoming (with your ready-to-scan QR pass), Active (with live countdown timer), Completed (with downloadable tax invoices), and Cancelled (with refund tracking).",
     badge: "My Bookings Hub",
     source: "ParkGrid Digital Booking Manual",
     document: "ParkGrid_User_Guide_2026.pdf",
@@ -257,21 +311,31 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Payments",
     subcategory: "Payment methods",
     question: "Which payment methods are accepted at ParkGrid One?",
-    answer: "We accept all major secure Indian and international payment gateways: UPI (Google Pay, PhonePe, Paytm, BHIM), Credit and Debit cards (Visa, MasterCard, RuPay, American Express), Net Banking across 50+ banks, and ParkGrid FastPass digital wallet balances.",
+    answer:
+      "We accept all major secure Indian and international payment gateways: UPI (Google Pay, PhonePe, Paytm, BHIM), Credit and Debit cards (Visa, MasterCard, RuPay, American Express), Net Banking across 50+ banks, and ParkGrid FastPass digital wallet balances.",
     badge: "UPI · Cards · NetBanking",
     source: "ParkGrid Financial & Payment Compliance Policy",
     document: "Payment_Terms_and_Gateway_Policy.pdf",
     version: "2.0",
     lastUpdated: "September 2026",
     relatedIds: ["pay-02", "pay-03"],
-    keywords: ["payment methods", "upi", "google pay", "phonepe", "credit card", "debit card", "rupay"],
+    keywords: [
+      "payment methods",
+      "upi",
+      "google pay",
+      "phonepe",
+      "credit card",
+      "debit card",
+      "rupay",
+    ],
   },
   {
     id: "pay-02",
     category: "Payments",
     subcategory: "Parking fee calculation",
     question: "How are parking fees calculated and are taxes included?",
-    answer: "Standard parking is priced at ₹50 per hour. EV charging bays are ₹70 per hour (electric energy consumed is billed separately at ₹12/kWh). All rates are subject to 18% statutory GST, which is itemized transparently during checkout and on official GST tax invoices.",
+    answer:
+      "Standard parking is priced at ₹50 per hour. EV charging bays are ₹70 per hour (electric energy consumed is billed separately at ₹12/kWh). All rates are subject to 18% statutory GST, which is itemized transparently during checkout and on official GST tax invoices.",
     badge: "₹50/hr Standard · ₹70/hr EV",
     source: "ParkGrid Tariff Schedule & Commercial Policy",
     document: "ParkGrid_Tariff_Schedule_BKC.pdf",
@@ -285,21 +349,30 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Payments",
     subcategory: "Failed payments",
     question: "What happens if money is deducted but the booking shows failed?",
-    answer: "If your bank debits your account but gateway confirmation times out, the funds remain safely protected. Most automated banking reconciliations auto-refund within 24 to 48 hours. If the booking did not generate, submit a ticket on our 'Contact Support' page with your bank UTR or transaction ID.",
+    answer:
+      "If your bank debits your account but gateway confirmation times out, the funds remain safely protected. Most automated banking reconciliations auto-refund within 24 to 48 hours. If the booking did not generate, submit a ticket on our 'Contact Support' page with your bank UTR or transaction ID.",
     badge: "Auto-Reconciliation",
     source: "ParkGrid Financial & Payment Compliance Policy",
     document: "Payment_Terms_and_Gateway_Policy.pdf",
     version: "2.0",
     lastUpdated: "September 2026",
     relatedIds: ["pay-01", "pay-04", "can-03"],
-    keywords: ["failed payment", "money deducted", "gateway error", "utr", "pending", "reconciliation"],
+    keywords: [
+      "failed payment",
+      "money deducted",
+      "gateway error",
+      "utr",
+      "pending",
+      "reconciliation",
+    ],
   },
   {
     id: "pay-04",
     category: "Payments",
     subcategory: "Payment status",
     question: "How do I check the payment status of my transaction or get a GST invoice?",
-    answer: "Upon successful payment, an automated confirmation screen displays the Transaction Reference, Payment Gateway ID, and Amount Paid. You can download the GST invoice at any time from 'My Bookings' or receive it via your registered email address.",
+    answer:
+      "Upon successful payment, an automated confirmation screen displays the Transaction Reference, Payment Gateway ID, and Amount Paid. You can download the GST invoice at any time from 'My Bookings' or receive it via your registered email address.",
     badge: "GST Invoices",
     source: "ParkGrid Financial & Payment Compliance Policy",
     document: "Payment_Terms_and_Gateway_Policy.pdf",
@@ -315,7 +388,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Cancellation & Refunds",
     subcategory: "Cancellation process",
     question: "How do I cancel my parking reservation?",
-    answer: "To cancel a booking: Open the 'My Bookings' page, locate your upcoming reservation under the 'Upcoming' tab, tap 'View Details', and click 'Cancel Reservation'. You will be shown the applicable refund calculation before confirming the cancellation.",
+    answer:
+      "To cancel a booking: Open the 'My Bookings' page, locate your upcoming reservation under the 'Upcoming' tab, tap 'View Details', and click 'Cancel Reservation'. You will be shown the applicable refund calculation before confirming the cancellation.",
     badge: "Self-Service",
     source: "ParkGrid Customer Service & Cancellation Protocol",
     document: "Cancellation_and_Refund_Policy_2026.pdf",
@@ -329,9 +403,11 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Cancellation & Refunds",
     subcategory: "Cancellation policy",
     question: "What is the ParkGrid cancellation and refund policy timeline?",
-    answer: "Cancellations made more than 2 hours prior to scheduled arrival receive a 100% full refund. Cancellations made between 30 minutes and 2 hours prior to arrival receive a 50% refund. Cancellations requested less than 30 minutes before arrival or after scheduled start are non-refundable.",
+    answer:
+      "Cancellations made more than 2 hours prior to scheduled arrival receive a 100% full refund. Cancellations made between 30 minutes and 2 hours prior to arrival receive a 50% refund. Cancellations requested less than 30 minutes before arrival or after scheduled start are non-refundable.",
     badge: "100% Refund > 2 hrs",
-    importantNotice: "100% refund for cancellations > 2 hours prior. 50% refund between 30 mins and 2 hours. Non-refundable within 30 mins of arrival.",
+    importantNotice:
+      "100% refund for cancellations > 2 hours prior. 50% refund between 30 mins and 2 hours. Non-refundable within 30 mins of arrival.",
     source: "ParkGrid Customer Service & Cancellation Protocol",
     document: "Cancellation_and_Refund_Policy_2026.pdf",
     version: "2.2",
@@ -344,7 +420,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Cancellation & Refunds",
     subcategory: "Refund process",
     question: "How long does it take for the refund to reflect in my bank account?",
-    answer: "Approved refunds are processed through the payment gateway within 1 hour. Depending on your bank's clearance cycle: UPI refunds typically credit within 2 to 4 hours, whereas Credit/Debit Card and Net Banking reversals reflect within 3 to 5 banking business days.",
+    answer:
+      "Approved refunds are processed through the payment gateway within 1 hour. Depending on your bank's clearance cycle: UPI refunds typically credit within 2 to 4 hours, whereas Credit/Debit Card and Net Banking reversals reflect within 3 to 5 banking business days.",
     badge: "3-5 Business Days",
     source: "ParkGrid Customer Service & Cancellation Protocol",
     document: "Cancellation_and_Refund_Policy_2026.pdf",
@@ -358,7 +435,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Cancellation & Refunds",
     subcategory: "No-show policy",
     question: "What happens if I do not arrive for my booked reservation (No-Show)?",
-    answer: "Your reserved slot is held exclusively for you for 45 minutes past your scheduled start time. If you do not scan into the facility within this 45-minute grace window without rescheduling, the bay is marked as a 'No-Show' and released for dynamic assignment, with no refund eligible.",
+    answer:
+      "Your reserved slot is held exclusively for you for 45 minutes past your scheduled start time. If you do not scan into the facility within this 45-minute grace window without rescheduling, the bay is marked as a 'No-Show' and released for dynamic assignment, with no refund eligible.",
     badge: "45m Grace Window",
     source: "ParkGrid Reservation & Customer Terms",
     document: "Booking_Terms_Conditions_2026.pdf",
@@ -374,7 +452,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "EV Charging",
     subcategory: "EV charger availability",
     question: "How many EV charging bays are available and where are they located?",
-    answer: "ParkGrid One provides six dedicated ultra-fast EV charging bays (bays E01 through E06) located on Ground (G1) and Basement (B1). All EV spots are equipped with overhead digital presence sensors, cable management holsters, and live battery level telemetry.",
+    answer:
+      "ParkGrid One provides six dedicated ultra-fast EV charging bays (bays E01 through E06) located on Ground (G1) and Basement (B1). All EV spots are equipped with overhead digital presence sensors, cable management holsters, and live battery level telemetry.",
     badge: "6 Dedicated Bays",
     source: "ParkGrid Clean Mobility Infrastructure Spec",
     document: "EV_Infrastructure_Manual_BKC.pdf",
@@ -388,7 +467,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "EV Charging",
     subcategory: "Charger types",
     question: "What connector standards and charging speeds are supported?",
-    answer: "Our charging infrastructure features high-capacity Dual CCS2 DC Fast Chargers supporting speeds up to 60 kW (delivering 20% to 80% charge in ~35-45 minutes), alongside Type-2 AC destination chargers operating at up to 22 kW for longer parking durations.",
+    answer:
+      "Our charging infrastructure features high-capacity Dual CCS2 DC Fast Chargers supporting speeds up to 60 kW (delivering 20% to 80% charge in ~35-45 minutes), alongside Type-2 AC destination chargers operating at up to 22 kW for longer parking durations.",
     badge: "CCS2 (60kW) & Type-2",
     source: "ParkGrid Clean Mobility Infrastructure Spec",
     document: "EV_Infrastructure_Manual_BKC.pdf",
@@ -402,7 +482,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "EV Charging",
     subcategory: "Charging process",
     question: "How do I initiate an EV charging session upon arrival?",
-    answer: "After parking in your booked EV bay, plug the corresponding CCS2 or Type-2 connector securely into your vehicle socket. Scan the QR code located on the charger totem using the ParkGrid app, verify your charging target (e.g. 80% or 100%), and tap 'Start Session'. Live kWh usage and battery metrics update in real-time.",
+    answer:
+      "After parking in your booked EV bay, plug the corresponding CCS2 or Type-2 connector securely into your vehicle socket. Scan the QR code located on the charger totem using the ParkGrid app, verify your charging target (e.g. 80% or 100%), and tap 'Start Session'. Live kWh usage and battery metrics update in real-time.",
     badge: "Plug & Scan",
     source: "ParkGrid Clean Mobility Infrastructure Spec",
     document: "EV_Infrastructure_Manual_BKC.pdf",
@@ -416,7 +497,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "EV Charging",
     subcategory: "Charging fees",
     question: "What are the tariffs for EV parking and electricity consumption?",
-    answer: "EV bays are billed at ₹70 per hour for parking bay occupancy. Electricity consumed is billed transparently at ₹12 per kWh with zero hidden surcharge. Upon completion of charging, you have a 15-minute complimentary disconnect window before standard idle fees apply.",
+    answer:
+      "EV bays are billed at ₹70 per hour for parking bay occupancy. Electricity consumed is billed transparently at ₹12 per kWh with zero hidden surcharge. Upon completion of charging, you have a 15-minute complimentary disconnect window before standard idle fees apply.",
     badge: "₹12/kWh + ₹70/hr Bay",
     source: "ParkGrid Tariff Schedule & Commercial Policy",
     document: "ParkGrid_Tariff_Schedule_BKC.pdf",
@@ -432,7 +514,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Entry & Exit",
     subcategory: "QR verification",
     question: "How does the contactless QR verification barrier work?",
-    answer: "Every reservation includes a dynamic encrypted QR parking pass. As you pull up to the entrance barrier kiosk, hold your mobile phone screen approximately 15 cm in front of the optical laser scanner. The system authenticates your booking in under 800 milliseconds and activates the barrier arm.",
+    answer:
+      "Every reservation includes a dynamic encrypted QR parking pass. As you pull up to the entrance barrier kiosk, hold your mobile phone screen approximately 15 cm in front of the optical laser scanner. The system authenticates your booking in under 800 milliseconds and activates the barrier arm.",
     badge: "Contactless Scan",
     source: "ParkGrid Barrier Hardware & Access Control Manual",
     document: "ParkGrid_Access_Control_Spec.pdf",
@@ -446,7 +529,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Entry & Exit",
     subcategory: "Entry process",
     question: "What is the step-by-step entry process when arriving at the facility?",
-    answer: "1. Approach the main BKC entrance lane at ≤ 8 km/h.\n2. Stop at the boom barrier kiosk marked 'ParkGrid Entry'.\n3. Present your QR pass to the optical scanner or let our ANPR cameras match your license plate.\n4. Once the boom barrier rises, follow overhead illuminated green arrows to your designated level (B1, B2, G1, L1, or L2) and bay number.",
+    answer:
+      "1. Approach the main BKC entrance lane at ≤ 8 km/h.\n2. Stop at the boom barrier kiosk marked 'ParkGrid Entry'.\n3. Present your QR pass to the optical scanner or let our ANPR cameras match your license plate.\n4. Once the boom barrier rises, follow overhead illuminated green arrows to your designated level (B1, B2, G1, L1, or L2) and bay number.",
     badge: "Step-by-Step",
     source: "ParkGrid Barrier Hardware & Access Control Manual",
     document: "ParkGrid_Access_Control_Spec.pdf",
@@ -460,21 +544,30 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Entry & Exit",
     subcategory: "QR problems",
     question: "What should I do if my phone battery dies or the QR code won't scan?",
-    answer: "Do not worry: You can manually key in your 6-character alphanumeric Booking Reference code (e.g. SP-10231) on the kiosk touchscreen keypad. Alternatively, press the red 'Assistance' call button directly on the barrier totem to speak with our 24/7 on-site control team, who can verify your vehicle plate number instantly.",
+    answer:
+      "Do not worry: You can manually key in your 6-character alphanumeric Booking Reference code (e.g. SP-10231) on the kiosk touchscreen keypad. Alternatively, press the red 'Assistance' call button directly on the barrier totem to speak with our 24/7 on-site control team, who can verify your vehicle plate number instantly.",
     badge: "24/7 Intercom Backup",
     source: "ParkGrid Barrier Hardware & Access Control Manual",
     document: "ParkGrid_Access_Control_Spec.pdf",
     version: "3.1",
     lastUpdated: "September 2026",
     relatedIds: ["ent-01", "ent-02"],
-    keywords: ["qr problems", "dead battery", "cannot scan", "touchscreen", "help button", "assistance"],
+    keywords: [
+      "qr problems",
+      "dead battery",
+      "cannot scan",
+      "touchscreen",
+      "help button",
+      "assistance",
+    ],
   },
   {
     id: "ent-04",
     category: "Entry & Exit",
     subcategory: "Exit process",
     question: "How do I exit the facility after my parking session?",
-    answer: "Drive towards the designated exit lanes following illuminated exit signage. Present your QR pass at the exit barrier scanner. If your session is within the booked duration or grace period, the barrier will open immediately. If an overstay balance is due, you can tap to pay via UPI or card directly at the terminal.",
+    answer:
+      "Drive towards the designated exit lanes following illuminated exit signage. Present your QR pass at the exit barrier scanner. If your session is within the booked duration or grace period, the barrier will open immediately. If an overstay balance is due, you can tap to pay via UPI or card directly at the terminal.",
     badge: "Quick Exit",
     source: "ParkGrid Barrier Hardware & Access Control Manual",
     document: "ParkGrid_Access_Control_Spec.pdf",
@@ -488,9 +581,11 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Entry & Exit",
     subcategory: "Overstay",
     question: "What is the grace period and fee structure for overstaying a booking?",
-    answer: "Every booking includes a complimentary 15-minute exit grace period after scheduled departure. If you exceed this 15-minute window without extending through the app, overstay is billed at standard hourly rates rounded up to the nearest hour. You can settle the balance seamlessly at the exit kiosk.",
+    answer:
+      "Every booking includes a complimentary 15-minute exit grace period after scheduled departure. If you exceed this 15-minute window without extending through the app, overstay is billed at standard hourly rates rounded up to the nearest hour. You can settle the balance seamlessly at the exit kiosk.",
     badge: "15m Grace Period",
-    importantNotice: "15-minute complimentary departure grace period. Unextended overstay is billed at standard hourly rates at the exit barrier.",
+    importantNotice:
+      "15-minute complimentary departure grace period. Unextended overstay is billed at standard hourly rates at the exit barrier.",
     source: "ParkGrid Reservation & Customer Terms",
     document: "Booking_Terms_Conditions_2026.pdf",
     version: "1.4",
@@ -505,7 +600,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking AI",
     subcategory: "What Parking AI can do",
     question: "What capabilities does the ParkGrid AI Concierge offer?",
-    answer: "The ParkGrid AI Concierge is a conversational smart assistant powered by retrieval-augmented generation (RAG) over official facility documentation. It can tell you real-time bay availability, compute parking tariffs, explain EV charging compatibility, outline heavy vehicle rules, and guide you through booking modifications.",
+    answer:
+      "The ParkGrid AI Concierge is a conversational smart assistant powered by retrieval-augmented generation (RAG) over official facility documentation. It can tell you real-time bay availability, compute parking tariffs, explain EV charging compatibility, outline heavy vehicle rules, and guide you through booking modifications.",
     badge: "RAG Powered",
     source: "ParkGrid AI Assistant Architecture & RAG Specification",
     document: "ParkGrid_AI_System_Architecture.pdf",
@@ -519,7 +615,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking AI",
     subcategory: "Live availability questions",
     question: "Can I query Parking AI for live floor-by-floor availability?",
-    answer: "Yes! You can ask specific real-time questions such as 'Are there EV bays open right now?' or 'How many slots are available on Basement B1?' The AI checks the live sensor telemetry database to return accurate, up-to-the-minute bay counts.",
+    answer:
+      "Yes! You can ask specific real-time questions such as 'Are there EV bays open right now?' or 'How many slots are available on Basement B1?' The AI checks the live sensor telemetry database to return accurate, up-to-the-minute bay counts.",
     badge: "Live Telemetry",
     source: "ParkGrid AI Assistant Architecture & RAG Specification",
     document: "ParkGrid_AI_System_Architecture.pdf",
@@ -533,7 +630,8 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking AI",
     subcategory: "Parking-rule questions",
     question: "Can Parking AI explain facility rules, speed limits, and vehicle restrictions?",
-    answer: "Yes. Parking AI has direct access to our safety handbook and municipal compliance documents. It can answer questions about the 8 km/h speed limit, overnight parking safety, height clearances on L1/L2, and heavy vehicle parking rules on G1 and B1/B2.",
+    answer:
+      "Yes. Parking AI has direct access to our safety handbook and municipal compliance documents. It can answer questions about the 8 km/h speed limit, overnight parking safety, height clearances on L1/L2, and heavy vehicle parking rules on G1 and B1/B2.",
     badge: "Policy Knowledge",
     source: "ParkGrid AI Assistant Architecture & RAG Specification",
     document: "ParkGrid_AI_System_Architecture.pdf",
@@ -547,14 +645,21 @@ export const FAQ_DATABASE: FAQItem[] = [
     category: "Parking AI",
     subcategory: "Booking-related questions",
     question: "Can Parking AI help me with booking, modification, or refund inquiries?",
-    answer: "Yes. You can ask Parking AI how to extend your parking, the exact refund eligibility for your cancellation window, or how to locate your QR pass. Note: In compliance with privacy standards, the AI does not expose private customer passwords or credit card numbers.",
+    answer:
+      "Yes. You can ask Parking AI how to extend your parking, the exact refund eligibility for your cancellation window, or how to locate your QR pass. Note: In compliance with privacy standards, the AI does not expose private customer passwords or credit card numbers.",
     badge: "Booking Help",
     source: "ParkGrid AI Assistant Architecture & RAG Specification",
     document: "ParkGrid_AI_System_Architecture.pdf",
     version: "1.2",
     lastUpdated: "September 2026",
     relatedIds: ["bok-03", "can-02", "ai-01"],
-    keywords: ["booking help", "cancellation inquiry", "how to extend", "privacy", "pass assistance"],
+    keywords: [
+      "booking help",
+      "cancellation inquiry",
+      "how to extend",
+      "privacy",
+      "pass assistance",
+    ],
   },
 ];
 
@@ -572,7 +677,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "Parking_Rules_BKC.pdf",
     category: "Parking",
-    description: "Facility specs, slot allocations, floor structure (B1-L2), and heavy vehicle regulations.",
+    description:
+      "Facility specs, slot allocations, floor structure (B1-L2), and heavy vehicle regulations.",
     chunksCount: 6,
     lastUpdated: "September 2026",
     version: "2.4",
@@ -581,7 +687,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "Booking_Terms_2026.pdf",
     category: "Booking",
-    description: "Advance booking rules, slot reservations, in-app extensions, and customer policies.",
+    description:
+      "Advance booking rules, slot reservations, in-app extensions, and customer policies.",
     chunksCount: 5,
     lastUpdated: "September 2026",
     version: "2.3",
@@ -590,7 +697,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "Payment_Refund_Policy.pdf",
     category: "Payments",
-    description: "Tariff calculations, GST compliance, payment gateway reconciliation, and refund SLAs.",
+    description:
+      "Tariff calculations, GST compliance, payment gateway reconciliation, and refund SLAs.",
     chunksCount: 8,
     lastUpdated: "September 2026",
     version: "2.2",
@@ -599,7 +707,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "EV_Charging_Guide.pdf",
     category: "EV Charging",
-    description: "60 kW CCS2 & 22 kW Type-2 charger specs, tariffs (₹12/kWh), and session telemetry.",
+    description:
+      "60 kW CCS2 & 22 kW Type-2 charger specs, tariffs (₹12/kWh), and session telemetry.",
     chunksCount: 4,
     lastUpdated: "September 2026",
     version: "2.0",
@@ -608,7 +717,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "Access_Control_and_Barriers.pdf",
     category: "Entry & Exit",
-    description: "Contactless QR protocols, license plate ANPR cameras, 8 km/h limits, and overstay fees.",
+    description:
+      "Contactless QR protocols, license plate ANPR cameras, 8 km/h limits, and overstay fees.",
     chunksCount: 5,
     lastUpdated: "September 2026",
     version: "3.1",
@@ -617,7 +727,8 @@ export const RAG_DOCUMENTS: RAGDocument[] = [
   {
     name: "Parking_AI_Architecture.pdf",
     category: "Parking AI",
-    description: "RAG index schema, system prompt embeddings, live telemetry hooks, and guardrails.",
+    description:
+      "RAG index schema, system prompt embeddings, live telemetry hooks, and guardrails.",
     chunksCount: 4,
     lastUpdated: "September 2026",
     version: "1.2",

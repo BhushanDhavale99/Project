@@ -6,9 +6,9 @@ export type FloorCategory = "basement" | "ground" | "upper";
 export const FLOOR_CONFIG: Record<number, { label: string; category: FloorCategory }> = {
   1: { label: "B1", category: "basement" },
   2: { label: "B2", category: "basement" },
-  3: { label: "G1", category: "ground"  },
-  4: { label: "L1", category: "upper"   },
-  5: { label: "L2", category: "upper"   },
+  3: { label: "G1", category: "ground" },
+  4: { label: "L1", category: "upper" },
+  5: { label: "L2", category: "upper" },
 };
 
 export type ParkingSlotData = {
@@ -37,7 +37,7 @@ const states: SlotStatus[] = [
 ];
 
 export const parkingSlots: ParkingSlotData[] = Array.from({ length: 60 }, (_, index) => {
-  const floor = Math.floor(index / 12) + 1;        // 1-5
+  const floor = Math.floor(index / 12) + 1; // 1-5
   const localIndex = index % 12;
   const zone = localIndex >= 8 ? "EV" : localIndex >= 4 ? "B" : "A";
   const prefix = zone === "EV" ? "E" : zone;
@@ -73,4 +73,3 @@ export const facilities = [
   ["Smart Guidance", "Live signs guide you directly to your bay."],
   ["Emergency Assistance", "One-touch help points throughout the facility."],
 ] as const;
-
