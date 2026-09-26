@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { HomePage } from "@/components/app-pages";
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
 
 // No head() here: the home route inherits title/description/og/twitter from
 // __root.tsx, and ships no og:image so serve-time hosting can inject the
@@ -13,6 +12,6 @@ export const Route = createFileRoute("/")({
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ]}),
-  component: HomePage,
+  component: lazyRouteComponent(() => import("@/components/app-pages"), "HomePage"),
 });
 

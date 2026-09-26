@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ContactSupportPage } from "@/components/ContactSupportPage";
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/support")({
   head: () => ({
@@ -20,5 +19,5 @@ export const Route = createFileRoute("/support")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ContactSupportPage,
+  component: lazyRouteComponent(() => import("@/components/ContactSupportPage"), "ContactSupportPage"),
 });

@@ -253,7 +253,7 @@ export function ContactSupportPage() {
                         type="button"
                         onClick={() => setCategory(cat.id)}
                         className={cn(
-                          "flex items-start gap-2.5 border p-3 text-left transition",
+                          "interactive-lift flex items-start gap-2.5 border p-3 text-left transition",
                           isSelected
                             ? "border-primary bg-primary/10 text-foreground ring-1 ring-primary"
                             : "border-border bg-background text-muted-foreground hover:border-border/80 hover:text-foreground",
@@ -383,7 +383,7 @@ export function ContactSupportPage() {
           {/* Right Column: Direct Contact & Recent Tickets */}
           <div className="space-y-6">
             {/* 24/7 Control Room Hub */}
-            <div className="border border-border bg-surface p-6">
+            <div className="interactive-lift border border-border bg-surface p-6">
               <span className="font-mono text-[10px] uppercase tracking-widest text-primary">
                 Immediate Assistance
               </span>
@@ -393,7 +393,7 @@ export function ContactSupportPage() {
               </p>
 
               <div className="mt-6 space-y-4 text-xs">
-                <div className="flex items-start gap-3 border border-border bg-background p-3.5">
+                <div className="interactive-lift flex items-start gap-3 border border-border bg-background p-3.5">
                   <Phone className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
                     <strong className="block text-sm text-foreground">+91 20 4827 2400</strong>
@@ -401,7 +401,7 @@ export function ContactSupportPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 border border-border bg-background p-3.5">
+                <div className="interactive-lift flex items-start gap-3 border border-border bg-background p-3.5">
                   <Mail className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
                     <strong className="block text-sm text-foreground">help@parkgrid.one</strong>
@@ -409,7 +409,7 @@ export function ContactSupportPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 border border-border bg-background p-3.5">
+                <div className="interactive-lift flex items-start gap-3 border border-border bg-background p-3.5">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
                   <div>
                     <strong className="block text-sm text-foreground">Ground Level (G1) Control Hub</strong>
@@ -441,7 +441,7 @@ export function ContactSupportPage() {
             </div>
 
             {/* AI Assistant Quick Callout */}
-            <div className="border border-border/80 bg-primary/5 p-6">
+            <div className="interactive-lift border border-border/80 bg-primary/5 p-6">
               <div className="flex items-center gap-2 text-primary">
                 <Bot className="size-5" />
                 <strong className="font-display text-lg">Instant AI Answers</strong>
